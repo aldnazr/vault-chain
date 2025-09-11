@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:vault_chain/model/market_model.dart';
+import 'package:vault_chain/data/model/coin_detail.dart';
+import 'package:vault_chain/data/model/market_model.dart';
 
 class CoinGeckoApi {
   static final _baseUrl = 'https://api.coingecko.com/api/v3';
@@ -19,24 +20,14 @@ class CoinGeckoApi {
     }
   }
 
-  Future<Map<String, dynamic>> fetchPriceChanges(String endpoint) async {
+  Future<CoinDetail> getDetails(String endpoint) async {
     final url = Uri.parse("$_baseUrl$endpoint");
 
     final response = await http.get(url, headers: _header);
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-
-      final marketData = data['market_data'];
-
-      return {
-        '24h': marketData['price_change_percentage_24h'],
-        '7d': marketData['price_change_percentage_7d'],
-        '14d': marketData['price_change_percentage_14d'],
-        '30d': marketData['price_change_percentage_30d'],
-        '60d': marketData['price_change_percentage_60d'],
-        '1y': marketData['price_change_percentage_1y'],
-      };
+      final Map<String, dynamic> body = jsonDecode(response.body);
+      return CoinDetail.fromJson(body);
     } else {
       throw Exception("Failed to fetch data: ${response.statusCode}");
     }

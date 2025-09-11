@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:vault_chain/pages/market_tab.dart';
-import 'package:vault_chain/pages/portofolio_tab.dart';
-import 'package:vault_chain/pages/trade_tab.dart';
-import 'package:vault_chain/pages/wallet_tab.dart';
-import 'package:vault_chain/services/providers/scroll_provider.dart';
-import 'package:vault_chain/utils/util.dart';
+import 'package:vault_chain/presentation/pages/market_tab.dart';
+import 'package:vault_chain/presentation/pages/portofolio_tab.dart';
+import 'package:vault_chain/presentation/pages/trade_tab.dart';
+import 'package:vault_chain/presentation/pages/wallet_tab.dart';
+import 'package:vault_chain/data/services/providers/scroll_provider.dart';
+import 'package:vault_chain/core/utils/util.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

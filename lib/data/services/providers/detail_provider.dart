@@ -1,19 +1,20 @@
 import 'package:flutter/widgets.dart';
-import 'package:vault_chain/services/api/coin_gecko_api.dart';
-import 'package:vault_chain/services/api/endpoint.dart';
+import 'package:vault_chain/data/model/coin_detail.dart';
+import 'package:vault_chain/data/services/api/coin_gecko_api.dart';
+import 'package:vault_chain/data/services/api/endpoint.dart';
 
 class DetailProvider with ChangeNotifier {
   final _api = CoinGeckoApi();
-  bool isLoading = true;
+  var isLoading = true;
   String? error;
-  Map<String, dynamic> priceChanges = {};
+  CoinDetail? coinDetail;
 
   Future<void> init() async {
     isLoading = true;
     notifyListeners();
 
     try {
-      await fetchPriceChanges();
+      await fetchDetail();
     } catch (e) {
       error = e.toString();
     }
@@ -22,15 +23,13 @@ class DetailProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchPriceChanges() async {
+  Future<void> fetchDetail({String id = 'bitcoin'}) async {
     isLoading = true;
     error = null;
     notifyListeners();
 
     try {
-      priceChanges = await _api.fetchPriceChanges(
-        Endpoint.coinDetail('bitcoin'),
-      );
+      coinDetail = await _api.getDetails(Endpoint.coinDetail(id));
     } catch (e) {
       error = e.toString();
     }

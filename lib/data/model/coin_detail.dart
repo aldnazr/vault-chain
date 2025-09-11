@@ -56,40 +56,26 @@ class CoinImage {
 class MarketData {
   final Map<String, dynamic> currentPrice;
   final int? marketCapRank;
-  final double? priceChangePercentage24h;
-  final double? priceChangePercentage7d;
-  final double? priceChangePercentage14d;
-  final double? priceChangePercentage30d;
-  final double? priceChangePercentage60d;
-  final double? priceChangePercentage1y;
+  final Map<String, double> changes;
 
   MarketData({
     required this.currentPrice,
     this.marketCapRank,
-    this.priceChangePercentage24h,
-    this.priceChangePercentage7d,
-    this.priceChangePercentage14d,
-    this.priceChangePercentage30d,
-    this.priceChangePercentage60d,
-    this.priceChangePercentage1y,
+    required this.changes,
   });
 
   factory MarketData.fromJson(Map<String, dynamic> json) {
     return MarketData(
-      currentPrice: Map<String, dynamic>.from(json['current_price']['id']),
+      currentPrice: Map<String, dynamic>.from(json['current_price']),
       marketCapRank: json['market_cap_rank'],
-      priceChangePercentage24h: (json['price_change_percentage_24h'] as num?)
-          ?.toDouble(),
-      priceChangePercentage7d: (json['price_change_percentage_7d'] as num?)
-          ?.toDouble(),
-      priceChangePercentage14d: (json['price_change_percentage_14d'] as num?)
-          ?.toDouble(),
-      priceChangePercentage30d: (json['price_change_percentage_30d'] as num?)
-          ?.toDouble(),
-      priceChangePercentage60d: (json['price_change_percentage_60d'] as num?)
-          ?.toDouble(),
-      priceChangePercentage1y: (json['price_change_percentage_1y'] as num?)
-          ?.toDouble(),
+      changes: {
+        "24h": (json['price_change_percentage_24h'] as num).toDouble(),
+        "7d": (json['price_change_percentage_7d'] as num).toDouble(),
+        "14d": (json['price_change_percentage_14d'] as num).toDouble(),
+        "30d": (json['price_change_percentage_30d'] as num).toDouble(),
+        "60d": (json['price_change_percentage_60d'] as num).toDouble(),
+        "1y": (json['price_change_percentage_1y'] as num).toDouble(),
+      },
     );
   }
 }

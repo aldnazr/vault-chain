@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:vault_chain/services/providers/filter_provider.dart';
-import 'package:vault_chain/services/providers/market_provider.dart';
-import 'package:vault_chain/services/providers/scroll_provider.dart';
-import 'package:vault_chain/utils/formatter.dart';
+import 'package:vault_chain/data/services/providers/filter_provider.dart';
+import 'package:vault_chain/data/services/providers/market_provider.dart';
+import 'package:vault_chain/data/services/providers/scroll_provider.dart';
+import 'package:vault_chain/core/utils/formatter.dart';
 
 class MarketTab extends StatelessWidget {
   const MarketTab({super.key});
@@ -92,7 +92,7 @@ class MarketTab extends StatelessWidget {
                         onTap: () => Navigator.of(
                           context,
                           rootNavigator: true,
-                        ).pushNamed('/detail_page', arguments: coin),
+                        ).pushNamed('/detail_page', arguments: coin.id),
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(coin.image),
                           backgroundColor: Colors.transparent,

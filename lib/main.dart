@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vault_chain/pages/coin_detail_page.dart';
-import 'package:vault_chain/pages/home_screen.dart';
-import 'package:vault_chain/pages/login_page.dart';
-import 'package:vault_chain/pages/register_page.dart';
-import 'package:vault_chain/pages/setting_page.dart';
-import 'package:vault_chain/pages/splash_screen.dart';
-import 'package:vault_chain/services/providers/detail_provider.dart';
-import 'package:vault_chain/services/providers/filter_provider.dart';
-import 'package:vault_chain/services/providers/market_provider.dart';
-import 'package:vault_chain/services/providers/scroll_provider.dart';
-import 'package:vault_chain/services/providers/theme_provider.dart';
+import 'package:vault_chain/presentation/pages/coin_detail_page.dart';
+import 'package:vault_chain/presentation/pages/home_screen.dart';
+import 'package:vault_chain/presentation/pages/login_page.dart';
+import 'package:vault_chain/presentation/pages/register_page.dart';
+import 'package:vault_chain/presentation/pages/setting_page.dart';
+import 'package:vault_chain/presentation/pages/splash_screen.dart';
+import 'package:vault_chain/data/services/providers/detail_provider.dart';
+import 'package:vault_chain/data/services/providers/filter_provider.dart';
+import 'package:vault_chain/data/services/providers/market_provider.dart';
+import 'package:vault_chain/data/services/providers/scroll_provider.dart';
+import 'package:vault_chain/data/services/providers/theme_provider.dart';
 
 final ValueNotifier<Key> appKeyNotifier = ValueNotifier(Key('initial'));
 
@@ -36,7 +36,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MarketProvider()..init()),
-        ChangeNotifierProvider(create: (_) => DetailProvider()..init()),
+        ChangeNotifierProvider(
+          create: (_) => DetailProvider()..init(),
+          child: CoinDetailPage(),
+        ),
         ChangeNotifierProvider(create: (_) => FilterProvider()),
         ChangeNotifierProvider(create: (_) => ScrollProvider()),
       ],

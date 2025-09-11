@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vault_chain/services/providers/theme_provider.dart';
+import 'package:vault_chain/data/services/providers/theme_provider.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});

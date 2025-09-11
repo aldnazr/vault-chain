@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vault_chain/model/market_model.dart';
-import 'package:vault_chain/services/api/coin_gecko_api.dart';
-import 'package:vault_chain/services/api/endpoint.dart';
+import 'package:vault_chain/data/model/market_model.dart';
+import 'package:vault_chain/data/services/api/coin_gecko_api.dart';
+import 'package:vault_chain/data/services/api/endpoint.dart';
 
 class MarketProvider with ChangeNotifier {
   final _api = CoinGeckoApi();

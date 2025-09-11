@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vault_chain/utils/pref_key.dart';
+import 'package:vault_chain/core/utils/pref_key.dart';
 
 class ThemeProvider extends ChangeNotifier {
   final _themeKey = PrefKey.themeMode;
