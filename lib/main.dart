@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive_ce/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:vault_chain/data/services/providers/portofolio_provider.dart';
 import 'package:vault_chain/presentation/pages/coin_detail_page.dart';
 import 'package:vault_chain/presentation/pages/home_screen.dart';
 import 'package:vault_chain/presentation/pages/login_page.dart';
@@ -14,7 +17,12 @@ import 'package:vault_chain/data/services/providers/theme_provider.dart';
 
 final ValueNotifier<Key> appKeyNotifier = ValueNotifier(Key('initial'));
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final dir = await getApplicationDocumentsDirectory();
+  Hive.init(dir.path);
+
   runApp(
     ValueListenableBuilder<Key>(
       valueListenable: appKeyNotifier,
@@ -42,6 +50,7 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (_) => FilterProvider()),
         ChangeNotifierProvider(create: (_) => ScrollProvider()),
+        ChangeNotifierProvider(create: (_) => PortofolioProvider()..init()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

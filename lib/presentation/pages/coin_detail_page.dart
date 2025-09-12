@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:vault_chain/data/model/portofolio_model.dart';
 import 'package:vault_chain/data/services/providers/detail_provider.dart';
 import 'package:vault_chain/core/utils/app_colors.dart';
 import 'package:vault_chain/core/utils/csv_parser.dart';
 import 'package:vault_chain/core/utils/formatter.dart';
 import 'package:vault_chain/core/utils/util.dart';
+import 'package:vault_chain/data/services/providers/portofolio_provider.dart';
 
 class CoinDetailPage extends StatefulWidget {
   const CoinDetailPage({super.key});
@@ -20,7 +22,6 @@ class CoinDetailPage extends StatefulWidget {
 class _CoinDetailPageState extends State<CoinDetailPage> {
   List<List<_BtcCandlestickData>>? _btcMonthlyData;
 
-  final int _currentMonthIndex = 0;
   late final List<String> monthsNames;
   late String routeArgument;
 
@@ -153,6 +154,21 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                 ),
               ],
             ),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  context.read<PortofolioProvider>().savePortofolio(
+                    PortofolioModel(
+                      coinDetail.id,
+                      coinDetail.name,
+                      coinDetail.symbol,
+                      coinDetail.image.small,
+                    ),
+                  );
+                },
+                icon: Icon(Icons.star_border_outlined),
+              ),
+            ],
           ),
           body: RefreshIndicator(
             onRefresh: () => _loadDetailData(),

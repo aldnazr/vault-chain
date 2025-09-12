@@ -11,6 +11,7 @@ class CoinOhlc {
     required this.low,
     required this.close,
   });
+
   factory CoinOhlc.fromList(List<dynamic> data) {
     return CoinOhlc(
       timestamp: DateTime.fromMillisecondsSinceEpoch(data[0]),
@@ -20,6 +21,7 @@ class CoinOhlc {
       close: (data[4] as num).toDouble(),
     );
   }
+
   List<dynamic> toList() {
     return [timestamp.millisecondsSinceEpoch, open, high, low, close];
   }

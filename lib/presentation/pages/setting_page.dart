@@ -11,45 +11,6 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  void _showAlertDialog(BuildContext context) {
-    final themeProvider = context.read<ThemeProvider>();
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text(
-            'Select Theme',
-            style: TextStyle(fontWeight: FontWeight.w500),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              RadioGroup<ThemeMode>(
-                groupValue: themeProvider.themeMode,
-                onChanged: (ThemeMode? value) {
-                  setState(() {
-                    themeProvider.toggleTheme(value ?? ThemeMode.system);
-                  });
-                  Navigator.of(context).pop();
-                },
-                child: const Column(
-                  children: [
-                    RadioListTile(title: Text('Light'), value: ThemeMode.light),
-                    RadioListTile(title: Text('Dark'), value: ThemeMode.dark),
-                    RadioListTile(
-                      title: Text('System'),
-                      value: ThemeMode.system,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   Future<void> _logout(BuildContext context) async {
     final pref = await SharedPreferences.getInstance();
     pref.clear();
@@ -89,6 +50,45 @@ class _SettingPageState extends State<SettingPage> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showAlertDialog(BuildContext context) {
+    final themeProvider = context.read<ThemeProvider>();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            'Select Theme',
+            style: TextStyle(fontWeight: FontWeight.w500),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioGroup<ThemeMode>(
+                groupValue: themeProvider.themeMode,
+                onChanged: (ThemeMode? value) {
+                  setState(() {
+                    themeProvider.toggleTheme(value ?? ThemeMode.system);
+                  });
+                  Navigator.of(context).pop();
+                },
+                child: const Column(
+                  children: [
+                    RadioListTile(title: Text('Light'), value: ThemeMode.light),
+                    RadioListTile(title: Text('Dark'), value: ThemeMode.dark),
+                    RadioListTile(
+                      title: Text('System'),
+                      value: ThemeMode.system,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
