@@ -14,8 +14,8 @@ class Endpoint {
         '&sparkline=false&price_change_percentage=24h';
   }
 
-  static String coinDetail(String id, {String currency = 'idr', int days = 1}) {
-    return '/coins/$id?vs_currency=$currency&days=$days';
+  static String details(String id, {String currency = 'idr', int days = 1}) {
+    return '/coins/$id?vs_currency=$currency&days=$days&tickers=false&developer_data=false&community_data=false';
   }
 
   static String marketChart({
@@ -24,5 +24,9 @@ class Endpoint {
     required int days,
   }) {
     return '/coins/$coinId/market_chart?vs_currency=$vsCurrency&days=$days';
+  }
+
+  static String ohlc(String coinId, {String vsCurrency = 'idr', int days = 1}) {
+    return '/coins/$coinId/ohlc?vs_currency=$vsCurrency&days=$days';
   }
 }

@@ -6,7 +6,6 @@ class CoinDetail {
   final List<String>? categories;
   final CoinImage image;
   final MarketData marketData;
-  final List<Ticker> tickers;
 
   CoinDetail({
     required this.id,
@@ -16,7 +15,6 @@ class CoinDetail {
     this.categories,
     required this.image,
     required this.marketData,
-    required this.tickers,
   });
 
   factory CoinDetail.fromJson(Map<String, dynamic> json) {
@@ -30,9 +28,6 @@ class CoinDetail {
           .toList(),
       image: CoinImage.fromJson(json['image']),
       marketData: MarketData.fromJson(json['market_data']),
-      tickers: (json['tickers'] as List<dynamic>)
-          .map((e) => Ticker.fromJson(e))
-          .toList(),
     );
   }
 }

@@ -73,6 +73,7 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
 
   Future<void> _loadDetailData() async {
     context.read<DetailProvider>().fetchDetail(id: routeArgument);
+    context.read<DetailProvider>().fetchOhlc(id: routeArgument);
   }
 
   void _loadData() async {
@@ -129,7 +130,7 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CircleAvatar(
-                  // radius: 15,
+                  radius: 14,
                   backgroundImage: NetworkImage(coinDetail.image.small),
                   backgroundColor: Colors.transparent,
                 ),
@@ -194,22 +195,22 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                             child: CandlestickChart(
                               CandlestickChartData(
                                 borderData: FlBorderData(show: false),
-                                candlestickSpots:
-                                    _btcMonthlyData![_currentMonthIndex]
-                                        .asMap()
-                                        .entries
-                                        .map((entry) {
-                                          final index = entry.key;
-                                          final data = entry.value;
-                                          return CandlestickSpot(
-                                            x: index.toDouble(),
-                                            open: data.open,
-                                            high: data.high,
-                                            low: data.low,
-                                            close: data.close,
-                                          );
-                                        })
-                                        .toList(),
+                                candlestickSpots: detailProvider.coinOhlc!
+                                    .asMap()
+                                    .entries
+                                    .map((entry) {
+                                      final index = entry.key;
+                                      final data = entry.value;
+                                      return CandlestickSpot(
+                                        x: index.toDouble(),
+                                        open: data.open,
+                                        high: data.high,
+                                        low: data.low,
+                                        close: data.close,
+                                        show: true,
+                                      );
+                                    })
+                                    .toList(),
                                 minX: 0,
                                 maxX: 31,
                                 gridData: FlGridData(
@@ -304,48 +305,41 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                         vertical: 12.0,
                         horizontal: 14.0,
                       ),
-                      child: Consumer<DetailProvider>(
-                        builder: (context, value, child) {
-                          if (value.error != null) {
-                            return Text(value.error!);
-                          }
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: value
-                                .coinDetail!
-                                .marketData
-                                .changes
-                                .entries
-                                .map((e) {
-                                  return Expanded(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          e.key,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: double.infinity,
-                                          child: Divider(),
-                                        ),
-                                        Text(
-                                          overflow: TextOverflow.ellipsis,
-                                          Formatter.formatPercent(e.value),
-                                          style: TextStyle(
-                                            color: e.value >= 0
-                                                ? Colors.green
-                                                : Colors.red,
-                                          ),
-                                        ),
-                                      ],
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: detailProvider
+                            .coinDetail!
+                            .marketData
+                            .changes
+                            .entries
+                            .map((e) {
+                              return Expanded(
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      e.key,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  );
-                                })
-                                .toList(),
-                          );
-                        },
+                                    SizedBox(
+                                      width: double.infinity,
+                                      child: Divider(),
+                                    ),
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      Formatter.formatPercent(e.value),
+                                      style: TextStyle(
+                                        color: e.value >= 0
+                                            ? Colors.green
+                                            : Colors.red,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            })
+                            .toList(),
                       ),
                     ),
                   ),
