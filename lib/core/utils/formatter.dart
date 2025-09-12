@@ -7,7 +7,7 @@ class Formatter {
     decimalDigits: 0,
   ).format(currency);
 
-  static formatChangeCurrency(num currency) => NumberFormat.currency(
+  static formatCurrencyWithoutSymbol(num currency) => NumberFormat.currency(
     locale: 'id_ID',
     symbol: '',
     decimalDigits: 0,

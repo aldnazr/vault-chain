@@ -212,7 +212,8 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                                     })
                                     .toList(),
                                 minX: 0,
-                                maxX: 31,
+                                maxX: detailProvider.coinOhlc!.length
+                                    .toDouble(),
                                 gridData: FlGridData(
                                   show: true,
                                   getDrawingVerticalLine: (_) =>
@@ -240,7 +241,7 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                                   bottomTitles: AxisTitles(
                                     sideTitles: SideTitles(
                                       showTitles: true,
-                                      reservedSize: 38,
+                                      reservedSize: 36,
                                       maxIncluded: false,
                                       interval: 1,
                                       getTitlesWidget: _bottomTitles,
@@ -251,16 +252,13 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                                   painter: AxisLinesIndicatorPainter(
                                     verticalLineProvider: (x) {
                                       final data =
-                                          _btcMonthlyData![_currentMonthIndex][x
-                                              .toInt()];
-
+                                          detailProvider.coinOhlc![x.toInt()];
                                       return VerticalLine(
                                         x: x,
                                         color:
-                                            (data.isUp
-                                                    ? AppColors
-                                                          .contentColorGreen
-                                                    : AppColors.contentColorRed)
+                                            (data.open < data.close
+                                                    ? Colors.green
+                                                    : Colors.red)
                                                 .withValues(alpha: 0.5),
                                         strokeWidth: 1,
                                       );
@@ -280,8 +278,9 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                                                 hLine.y.toInt().toString(),
                                             alignment: Alignment.topLeft,
                                           ),
-                                          color: AppColors.contentColorYellow
-                                              .withValues(alpha: 0.8),
+                                          color: Colors.yellow.withValues(
+                                            alpha: 0.8,
+                                          ),
                                           strokeWidth: 1,
                                         ),
                                   ),
