@@ -35,7 +35,10 @@ class PortofolioProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> toggleFavorite(PortofolioModel portofolio, bool loadData) async {
+  Future<void> toggleFavorite(
+    PortofolioModel portofolio,
+    bool refreshData,
+  ) async {
     final box = Hive.box(_portofolioBox);
     final stored = box.get(boxKey, defaultValue: []);
     if (_favoriteIds.contains(portofolio.id)) {
@@ -46,7 +49,7 @@ class PortofolioProvider with ChangeNotifier {
       _favoriteIds.add(portofolio.id);
     }
     await box.put(boxKey, stored);
-    if (loadData) {
+    if (refreshData) {
       await loadPortofolio();
     } else {
       notifyListeners();
