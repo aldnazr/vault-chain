@@ -9,7 +9,8 @@ class DetailProvider with ChangeNotifier {
   var isLoading = true;
   String? error;
 
-  CoinDetail? coinDetail;
+  CoinDetail? _coinDetail;
+  CoinDetail? get coinDetail => _coinDetail;
   List<CoinOhlc>? coinOhlc;
 
   Future<void> init() async {
@@ -33,7 +34,7 @@ class DetailProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      coinDetail = await _api.getDetails(Endpoint.details(id));
+      _coinDetail = await _api.getDetails(Endpoint.details(id));
     } catch (e) {
       error = e.toString();
     }

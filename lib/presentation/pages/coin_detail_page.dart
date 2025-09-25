@@ -3,7 +3,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import 'package:vault_chain/data/model/portofolio_model.dart';
 import 'package:vault_chain/data/services/providers/detail_provider.dart';
 import 'package:vault_chain/core/utils/app_colors.dart';
@@ -11,6 +10,7 @@ import 'package:vault_chain/core/utils/csv_parser.dart';
 import 'package:vault_chain/core/utils/formatter.dart';
 import 'package:vault_chain/core/utils/util.dart';
 import 'package:vault_chain/data/services/providers/portofolio_provider.dart';
+import 'package:vault_chain/widgets/coin_detail_skeleton.dart';
 
 class CoinDetailPage extends StatefulWidget {
   const CoinDetailPage({super.key});
@@ -118,7 +118,7 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
             .currentPrice['idr']
             .toString();
         if (detailProvider.isLoading || detailProvider.coinDetail == null) {
-          return _skeletonLoading();
+          return CoinDetailSkeleton();
         }
         if (detailProvider.error != null) {
           return Center(child: Text("Error: ${detailProvider.error}"));
@@ -457,31 +457,6 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
       // ),
     );
   }
-
-  Widget _skeletonLoading() => Skeletonizer.zone(
-    ignoreContainers: true,
-    child: Scaffold(
-      appBar: AppBar(
-        leading: Bone.icon(size: 8, indent: 15),
-        title: Bone.multiText(lines: 2, width: 120, fontSize: 14),
-      ),
-      body: SizedBox.expand(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            spacing: 12.0,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Bone.text(words: 2, fontSize: 26.0),
-              Bone.square(size: 280, borderRadius: BorderRadius.circular(8)),
-              Bone.square(size: 80, borderRadius: BorderRadius.circular(12)),
-              Bone.square(size: 55, borderRadius: BorderRadius.circular(12)),
-            ],
-          ),
-        ),
-      ),
-    ),
-  );
 }
 
 class _BtcCandlestickData with EquatableMixin {
