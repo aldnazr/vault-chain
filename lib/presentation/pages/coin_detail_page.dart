@@ -123,6 +123,10 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
         if (detailProvider.error != null) {
           return Center(child: Text("Error: ${detailProvider.error}"));
         }
+
+        final porto = context.watch<PortofolioProvider>();
+        final fav = porto.isFavorite(coinDetail.id);
+
         return Scaffold(
           backgroundColor: defaultBackground(context),
           appBar: AppBar(
@@ -157,16 +161,21 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
             actions: [
               IconButton(
                 onPressed: () {
-                  context.read<PortofolioProvider>().savePortofolio(
-                    PortofolioModel(
-                      coinDetail.id,
-                      coinDetail.name,
-                      coinDetail.symbol,
-                      coinDetail.image.small,
-                    ),
-                  );
+                  setState(() {
+                    porto.toggleFavorite(
+                      PortofolioModel(
+                        coinDetail.id,
+                        coinDetail.name,
+                        coinDetail.symbol,
+                        coinDetail.image.small,
+                      ),
+                      true,
+                    );
+                  });
                 },
+                isSelected: fav,
                 icon: Icon(Icons.star_border_outlined),
+                selectedIcon: Icon(Icons.star),
               ),
             ],
           ),

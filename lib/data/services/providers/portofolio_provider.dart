@@ -8,33 +8,19 @@ class PortofolioProvider with ChangeNotifier {
   static const String boxKey = "portofolioData";
 
   List<PortofolioModel> _portofolio = [];
+  final Set<String> _favoriteIds = {};
+
   List<PortofolioModel> get portofolio => _portofolio;
+  bool isFavorite(String id) => _favoriteIds.contains(id);
 
   Future<void> init() async {
     await Hive.openBox(_portofolioBox);
-    loadPortofolio();
-  }
-
-  Future<void> savePortofolio(PortofolioModel portofolio) async {
-    final box = Hive.box(_portofolioBox);
-
-    // ambil data lama
-    List stored = box.get(boxKey, defaultValue: []);
-
-    // cek apakah id sudah ada
-    final exists = stored.any((e) => e["id"] == portofolio.id);
-
-    if (!exists) {
-      stored.add(portofolio.toMap());
-      await box.put(boxKey, stored);
-      loadPortofolio();
-    }
+    await loadPortofolio();
   }
 
   Future<void> loadPortofolio() async {
     final box = Hive.box(_portofolioBox);
     final stored = box.get(boxKey, defaultValue: []);
-
     if (stored is List) {
       _portofolio = stored
           .map((e) => PortofolioModel.fromMap(Map<String, dynamic>.from(e)))
@@ -42,18 +28,28 @@ class PortofolioProvider with ChangeNotifier {
     } else {
       _portofolio = [];
     }
+    _favoriteIds
+      ..clear()
+      ..addAll(_portofolio.map((e) => e.id));
 
     notifyListeners();
   }
 
-  Future<void> deletePortofolio(PortofolioModel portofolio) async {
+  Future<void> toggleFavorite(PortofolioModel portofolio, bool loadData) async {
     final box = Hive.box(_portofolioBox);
-
-    List stored = box.get(boxKey, defaultValue: []);
-
-    stored.removeWhere((e) => e["id"] == portofolio.id);
+    final stored = box.get(boxKey, defaultValue: []);
+    if (_favoriteIds.contains(portofolio.id)) {
+      stored.removeWhere((e) => e["id"] == portofolio.id);
+      _favoriteIds.remove(portofolio.id);
+    } else {
+      stored.add(portofolio.toMap());
+      _favoriteIds.add(portofolio.id);
+    }
     await box.put(boxKey, stored);
-
-    notifyListeners();
+    if (loadData) {
+      await loadPortofolio();
+    } else {
+      notifyListeners();
+    }
   }
 }

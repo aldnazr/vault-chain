@@ -11,6 +11,8 @@ class PortofolioTab extends StatefulWidget {
 }
 
 class PortofolioTabState extends State<PortofolioTab> {
+  var isSelected = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,11 +26,8 @@ class PortofolioTabState extends State<PortofolioTab> {
                     child: ListView.builder(
                       itemCount: porto.portofolio.length,
                       itemBuilder: (context, index) {
-
                         final data = porto.portofolio[index];
-                        final isSelected = porto.portofolio.any((p) =>
-                            (p.id == data.id));
-
+                        final fav = porto.isFavorite(data.id);
                         return ListTile(
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(data.image),
@@ -38,25 +37,12 @@ class PortofolioTabState extends State<PortofolioTab> {
                           subtitle: Text(data.symbol.toUpperCase()),
                           trailing: IconButton(
                             onPressed: () {
-                              if (isSelected) {
-                                porto.deletePortofolio(data);
-                              } else {
-                                porto.savePortofolio(data);
-                              }
+                              porto.toggleFavorite(data, false);
                             },
-                            isSelected: isSelected,
+                            isSelected: fav,
                             selectedIcon: Icon(Icons.star),
                             icon: Icon(Icons.star_border_outlined),
                           ),
-                        );
-                      },
-                    ),
-                  ),
-                );
-        },
-      ),
-    );
-  }
                         );
                       },
                     ),
