@@ -47,7 +47,7 @@ class MarketProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      topMarkets = await _api.getMarkets(Endpoint.markets(perPage: 10));
+      topMarkets = await _api.getMarkets(Endpoint.markets(perPage: 20));
     } catch (e) {
       error = e.toString();
     }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vault_chain/data/services/providers/detail_provider.dart';
 import 'package:vault_chain/data/services/providers/portofolio_provider.dart';
 
 class PortofolioTab extends StatefulWidget {
@@ -29,6 +28,10 @@ class PortofolioTabState extends State<PortofolioTab> {
                         final data = porto.portofolio[index];
                         final fav = porto.isFavorite(data.id);
                         return ListTile(
+                          onTap: () => Navigator.of(
+                            context,
+                            rootNavigator: true,
+                          ).pushNamed('/detail_page', arguments: data.id),
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(data.image),
                             backgroundColor: Colors.transparent,

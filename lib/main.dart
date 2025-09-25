@@ -23,6 +23,8 @@ void main() async {
   final dir = await getApplicationDocumentsDirectory();
   Hive.init(dir.path);
 
+  await Hive.openBox(PortofolioProvider.portofolioBox);
+
   runApp(
     ValueListenableBuilder<Key>(
       valueListenable: appKeyNotifier,
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    final themeProvider = context.watch<ThemeProvider>();
 
     return MultiProvider(
       providers: [
@@ -64,7 +66,64 @@ class MyApp extends StatelessWidget {
           '/setting': (context) => const SettingPage(),
         },
         themeMode: themeProvider.themeMode,
-        darkTheme: ThemeData.dark(useMaterial3: true),
+        darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
+          inputDecorationTheme: InputDecorationTheme(
+            filled: false,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: Color.fromARGB(255, 224, 224, 224),
+                width: 1,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: Color.fromARGB(255, 224, 224, 224),
+                width: 1,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: Color.fromARGB(255, 79, 179, 121),
+                width: 2,
+              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: Colors.red, width: 1),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: Colors.red, width: 2),
+            ),
+            labelStyle: TextStyle(color: Colors.grey[700]),
+            errorStyle: TextStyle(color: Colors.red),
+          ),
+          filledButtonTheme: FilledButtonThemeData(
+            style: ButtonStyle(
+              fixedSize: WidgetStateProperty.all(Size(double.maxFinite, 48)),
+              elevation: WidgetStateProperty.all<double>(2),
+              shape: WidgetStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+            ),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              fixedSize: WidgetStateProperty.all(Size(double.maxFinite, 48)),
+              elevation: WidgetStateProperty.all<double>(2),
+              shape: WidgetStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+            ),
+          ),
+        ),
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.blueAccent,
@@ -121,6 +180,7 @@ class MyApp extends StatelessWidget {
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
               fixedSize: WidgetStateProperty.all(Size(double.maxFinite, 48)),
+              elevation: WidgetStateProperty.all<double>(2),
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),

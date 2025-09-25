@@ -26,25 +26,42 @@ class _RegisterPageState extends State<RegisterPage> {
       final password = _passwordController.text.trim();
       final confirmPassword = _confirmPasswordController.text.trim();
 
-      if (password == confirmPassword) {
-        await pref.setString(PrefKey.username.key, username);
-        await pref.setString(PrefKey.password.key, password);
+      if (username.isEmpty) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Masukkan username')));
+        return;
+      }
+      if (password.isEmpty) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Masukkan password')));
+        return;
+      }
+      if (confirmPassword.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Registrasi berhasil! Silakan login.')),
+          const SnackBar(content: Text('Masukkan konfirmasi password')),
         );
-        Navigator.pop(context);
-      } else {
+        return;
+      }
+      if (password != confirmPassword) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text('Sandi tidak sama')));
+        return;
       }
+      await pref.setString(PrefKey.username.key, username);
+      await pref.setString(PrefKey.password.key, password);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Registrasi berhasil! Silakan login.')),
+      );
+      Navigator.pop(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 245, 245, 245),
       body: Padding(
         padding: const EdgeInsets.all(14.0),
         child: Center(

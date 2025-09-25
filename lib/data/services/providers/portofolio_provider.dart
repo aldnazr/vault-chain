@@ -4,7 +4,7 @@ import 'package:hive_ce/hive.dart';
 import 'package:vault_chain/data/model/portofolio_model.dart';
 
 class PortofolioProvider with ChangeNotifier {
-  static const String _portofolioBox = "portofolioBox";
+  static const String portofolioBox = "portofolioBox";
   static const String boxKey = "portofolioData";
 
   List<PortofolioModel> _portofolio = [];
@@ -14,12 +14,12 @@ class PortofolioProvider with ChangeNotifier {
   bool isFavorite(String id) => _favoriteIds.contains(id);
 
   Future<void> init() async {
-    await Hive.openBox(_portofolioBox);
+    await Hive.openBox(portofolioBox);
     await loadPortofolio();
   }
 
   Future<void> loadPortofolio() async {
-    final box = Hive.box(_portofolioBox);
+    final box = Hive.box(portofolioBox);
     final stored = box.get(boxKey, defaultValue: []);
     if (stored is List) {
       _portofolio = stored
@@ -39,7 +39,7 @@ class PortofolioProvider with ChangeNotifier {
     PortofolioModel portofolio,
     bool refreshData,
   ) async {
-    final box = Hive.box(_portofolioBox);
+    final box = Hive.box(portofolioBox);
     final stored = box.get(boxKey, defaultValue: []);
     if (_favoriteIds.contains(portofolio.id)) {
       stored.removeWhere((e) => e["id"] == portofolio.id);
