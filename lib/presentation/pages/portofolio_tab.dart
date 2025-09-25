@@ -16,26 +16,52 @@ class PortofolioTabState extends State<PortofolioTab> {
     return Scaffold(
       body: Consumer<PortofolioProvider>(
         builder: (context, porto, child) {
-          return Expanded(
-            child: ListView.builder(
-              itemCount: porto.portofolio.length,
-              itemBuilder: (context, index) {
-                final data = porto.portofolio[index];
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(data.image),
-                    backgroundColor: Colors.transparent,
-                  ),
-                  title: Text(data.name),
-                  subtitle: Text(data.symbol.toUpperCase()),
-                  trailing: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.star),
+          return porto.portofolio.isEmpty
+              ? Center(child: Text('Tidak ada data'))
+              : Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: () => porto.loadPortofolio(),
+                    child: ListView.builder(
+                      itemCount: porto.portofolio.length,
+                      itemBuilder: (context, index) {
+
+                        final data = porto.portofolio[index];
+                        final isSelected = porto.portofolio.any((p) =>
+                            (p.id == data.id));
+
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(data.image),
+                            backgroundColor: Colors.transparent,
+                          ),
+                          title: Text(data.name),
+                          subtitle: Text(data.symbol.toUpperCase()),
+                          trailing: IconButton(
+                            onPressed: () {
+                              if (isSelected) {
+                                porto.deletePortofolio(data);
+                              } else {
+                                porto.savePortofolio(data);
+                              }
+                            },
+                            isSelected: isSelected,
+                            selectedIcon: Icon(Icons.star),
+                            icon: Icon(Icons.star_border_outlined),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 );
-              },
-            ),
-          );
+        },
+      ),
+    );
+  }
+                        );
+                      },
+                    ),
+                  ),
+                );
         },
       ),
     );
