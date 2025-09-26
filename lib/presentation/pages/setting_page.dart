@@ -34,8 +34,8 @@ class _SettingPageState extends State<SettingPage> {
                     ? Icons.light_mode
                     : Icons.dark_mode,
               ),
-              title: Text('Theme'),
-              subtitle: Text('Atur tema aplikasi'),
+              title: Text('Tema'),
+              subtitle: Text('Pilih tema aplikasi'),
               trailing: Icon(Icons.navigate_next),
             ),
             ListTile(

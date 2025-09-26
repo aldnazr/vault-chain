@@ -113,13 +113,13 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
     return Consumer<DetailProvider>(
       builder: (context, detailProvider, child) {
         final coinDetail = detailProvider.coinDetail;
-        _textCurrencyController.text = coinDetail!
-            .marketData
-            .currentPrice['idr']
-            .toString();
-        if (detailProvider.isLoading || detailProvider.coinDetail == null) {
+        if (detailProvider.isLoading ||
+            coinDetail == null ||
+            detailProvider.coinOhlc == null) {
           return CoinDetailSkeleton();
         }
+        _textCurrencyController.text = coinDetail.marketData.currentPrice['idr']
+            .toString();
         if (detailProvider.error != null) {
           return Center(child: Text("Error: ${detailProvider.error}"));
         }
@@ -161,17 +161,15 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
             actions: [
               IconButton(
                 onPressed: () {
-                  setState(() {
-                    porto.toggleFavorite(
-                      PortofolioModel(
-                        coinDetail.id,
-                        coinDetail.name,
-                        coinDetail.symbol,
-                        coinDetail.image.small,
-                      ),
-                      true,
-                    );
-                  });
+                  porto.toggleFavorite(
+                    PortofolioModel(
+                      coinDetail.id,
+                      coinDetail.name,
+                      coinDetail.symbol,
+                      coinDetail.image.small,
+                    ),
+                    true,
+                  );
                 },
                 isSelected: fav,
                 icon: Icon(Icons.star_border_outlined),

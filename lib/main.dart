@@ -23,8 +23,6 @@ void main() async {
   final dir = await getApplicationDocumentsDirectory();
   Hive.init(dir.path);
 
-  await Hive.openBox(PortofolioProvider.portofolioBox);
-
   runApp(
     ValueListenableBuilder<Key>(
       valueListenable: appKeyNotifier,

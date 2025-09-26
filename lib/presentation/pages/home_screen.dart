@@ -121,9 +121,9 @@ class _HomeScreenState extends State<HomeScreen> {
         navBarHeight: 65.0,
         hideNavigationBarWhenKeyboardAppears: true,
         navBarStyle: NavBarStyle.style9,
-        hideOnScrollSettings: HideOnScrollSettings(
-          scrollControllers: [context.read<ScrollProvider>().scrollController],
-        ),
+        // hideOnScrollSettings: HideOnScrollSettings(
+        //   scrollControllers: [context.watch<ScrollProvider>().scrollController],
+        // ),
         onItemSelected: (value) {
           setState(() {});
         },

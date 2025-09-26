@@ -2,6 +2,10 @@
 
 A new Flutter project.
 
+## Preview
+
+<img src="https://raw.githubusercontent.com/aldnazr/vault-chain/refs/heads/main/preview/1.png" width="" />
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

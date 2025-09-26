@@ -15,12 +15,8 @@ class MarketProvider with ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    try {
-      await fetchMarkets();
-      await fetchTopMarkets();
-    } catch (e) {
-      error = e.toString();
-    }
+    // await fetchMarkets();
+    await fetchTopMarkets();
 
     isLoading = false;
     notifyListeners();
