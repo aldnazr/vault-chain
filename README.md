@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Preview
 
-<img src="https://raw.githubusercontent.com/aldnazr/vault-chain/refs/heads/main/preview/1.png" width="" />
+<img src="https://raw.githubusercontent.com/aldnazr/vault-chain/refs/heads/main/preview/1.png" width="300" />
 
 ## Getting Started
 
