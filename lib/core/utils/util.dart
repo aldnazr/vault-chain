@@ -7,3 +7,7 @@ Color defaultBackground(BuildContext context) {
 Color defaultContainer(BuildContext context) {
   return Theme.of(context).colorScheme.surfaceContainer;
 }
+
+Color defaultTitleColor(BuildContext context) {
+  return Theme.of(context).textTheme.titleMedium!.color!;
+}

@@ -31,7 +31,15 @@ class MarketTab extends StatelessWidget {
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () => marketProvider.fetchTopMarkets(),
-                child: Cointile(listCoin: topMarket),
+                child: ListView.builder(
+                  primary: false,
+                  // controller: context.read<ScrollProvider>().scrollController,
+                  itemCount: topMarket.length,
+                  itemBuilder: (context, index) {
+                    final coin = topMarket[index];
+                    return Cointile(coin: coin);
+                  },
+                ),
               ),
             ),
           ],

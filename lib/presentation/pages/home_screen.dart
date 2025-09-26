@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:provider/provider.dart';
 import 'package:vault_chain/presentation/pages/market_tab.dart';
 import 'package:vault_chain/presentation/pages/portofolio_tab.dart';
 import 'package:vault_chain/presentation/pages/trade_tab.dart';
 import 'package:vault_chain/presentation/pages/wallet_tab.dart';
-import 'package:vault_chain/data/services/providers/scroll_provider.dart';
 import 'package:vault_chain/core/utils/util.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -86,6 +84,22 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: defaultBackground(context),
         surfaceTintColor: defaultBackground(context),
+        actionsPadding: EdgeInsets.only(right: 4.0),
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 16,
+              backgroundColor: Colors.transparent,
+              backgroundImage: AssetImage('assets/app_logo.png'),
+            ),
+            SizedBox(width: 10.0),
+            Text(
+              'Vault Chain',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
         actions: [
           IconButton(
             tooltip: 'Pengaturan',
@@ -96,21 +110,6 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.settings),
           ),
         ],
-        actionsPadding: EdgeInsets.only(right: 4.0),
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              backgroundColor: Colors.transparent,
-              backgroundImage: AssetImage('assets/app_logo.png'),
-            ),
-            SizedBox(width: 8.0),
-            Text(
-              'Vault Chain',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
       ),
       body: PersistentTabView(
         context,

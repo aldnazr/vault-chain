@@ -15,6 +15,14 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   bool isObscure = true;
 
+  @override
+  void initState() {
+    super.initState();
+
+    _usernameController.clear();
+    _passwordController.clear();
+  }
+
   Future<void> login() async {
     if (formKey.currentState!.validate()) {
       final pref = await SharedPreferences.getInstance();
@@ -50,7 +58,8 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/app_logo.png', width: 160),
+                  Image.asset('assets/app_logo.png', scale: 7),
+                  SizedBox(height: 6),
                   Text(
                     'Vault Chain',
                     style: TextStyle(

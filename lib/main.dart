@@ -83,10 +83,7 @@ class MyApp extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Color.fromARGB(255, 79, 179, 121),
-                width: 2,
-              ),
+              borderSide: BorderSide(width: 2),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
@@ -129,8 +126,7 @@ class MyApp extends StatelessWidget {
           ),
           scaffoldBackgroundColor: Colors.white,
           inputDecorationTheme: InputDecorationTheme(
-            filled: true,
-            fillColor: const Color.fromARGB(255, 255, 255, 255),
+            filled: false,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
@@ -147,10 +143,7 @@ class MyApp extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Color.fromARGB(255, 79, 179, 121),
-                width: 2,
-              ),
+              borderSide: BorderSide(width: 2),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
