@@ -120,16 +120,16 @@ class _HomeScreenState extends State<HomeScreen> {
         navBarHeight: 65.0,
         hideNavigationBarWhenKeyboardAppears: true,
         navBarStyle: NavBarStyle.style9,
-        // hideOnScrollSettings: HideOnScrollSettings(
-        //   scrollControllers: [context.watch<ScrollProvider>().scrollController],
-        // ),
-        onItemSelected: (value) {
-          setState(() {});
-        },
         onWillPop: (context) async {
           SystemNavigator.pop(animated: true);
           return true;
         },
+        // hideOnScrollSettings: HideOnScrollSettings(
+        //   scrollControllers: [context.watch<ScrollProvider>().scrollController],
+        // ),
+        // onItemSelected: (value) {
+        //   setState(() {});
+        // },
       ),
     );
   }
