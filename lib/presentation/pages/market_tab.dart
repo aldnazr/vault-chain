@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vault_chain/widgets/crypto_tab_bar.dart';
+import 'package:vault_chain/widgets/default_appbar.dart';
 import 'package:vault_chain/widgets/nft_tab_bar.dart';
 
 class MarketTab extends StatelessWidget {
@@ -9,18 +10,22 @@ class MarketTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Column(
-        children: [
-          TabBar(
-            padding: EdgeInsets.only(bottom: 2),
-            dividerHeight: 0,
-            tabs: [
-              Tab(text: 'Crypto'),
-              Tab(text: 'NFT'),
-            ],
-          ),
-          Expanded(child: TabBarView(children: [CryptoTabBar(), NftTabBar()])),
-        ],
+      child: Scaffold(
+        appBar: DefaultAppbar(),
+        body: Column(
+          children: [
+            TabBar(
+              dividerHeight: 0.8,
+              tabs: [
+                Tab(text: 'Crypto'),
+                Tab(text: 'NFT'),
+              ],
+            ),
+            Expanded(
+              child: TabBarView(children: [CryptoTabBar(), NftTabBar()]),
+            ),
+          ],
+        ),
       ),
     );
   }

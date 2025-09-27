@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vault_chain/data/services/providers/portofolio_provider.dart';
+import 'package:vault_chain/widgets/default_appbar.dart';
 import 'package:vault_chain/widgets/empty_portofolio.dart';
 
 class PortofolioTab extends StatefulWidget {
@@ -14,6 +15,7 @@ class PortofolioTabState extends State<PortofolioTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: DefaultAppbar(),
       body: Consumer<PortofolioProvider>(
         builder: (context, porto, child) {
           return RefreshIndicator(

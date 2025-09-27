@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vault_chain/widgets/default_appbar.dart';
 
 class TradeTab extends StatefulWidget {
   const TradeTab({super.key});
@@ -10,6 +11,6 @@ class TradeTab extends StatefulWidget {
 class _TradeTabState extends State<TradeTab> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(appBar: DefaultAppbar());
   }
 }

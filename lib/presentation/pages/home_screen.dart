@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:vault_chain/core/utils/util.dart';
 import 'package:vault_chain/presentation/pages/market_tab.dart';
 import 'package:vault_chain/presentation/pages/portofolio_tab.dart';
 import 'package:vault_chain/presentation/pages/trade_tab.dart';
 import 'package:vault_chain/presentation/pages/wallet_tab.dart';
-import 'package:vault_chain/core/utils/util.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,116 +20,76 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = PersistentTabController(initialIndex: 0);
+    _controller = PersistentTabController(initialIndex: 0, historyLength: 1);
   }
 
-  List<PersistentBottomNavBarItem> _navBarsItems() => [
-    PersistentBottomNavBarItem(
-      icon: SvgPicture.asset(
-        'assets/icons/finance.svg',
-        width: 24,
-        height: 24,
-        colorFilter: ColorFilter.mode(Colors.blue, BlendMode.srcIn),
+  List<PersistentTabConfig> _tabs() => [
+    PersistentTabConfig(
+      screen: const MarketTab(),
+      item: ItemConfig(
+        title: "Market",
+        icon: SvgPicture.asset(
+          'assets/icons/finance.svg',
+          width: 24,
+          height: 24,
+          colorFilter: ColorFilter.mode(Colors.blue, BlendMode.srcIn),
+        ),
       ),
-      title: "Market",
-      activeColorPrimary: Colors.blueAccent,
-      inactiveColorPrimary: Colors.grey,
     ),
-    PersistentBottomNavBarItem(
-      icon: SvgPicture.asset(
-        'assets/icons/star.svg',
-        width: 24,
-        height: 24,
-        colorFilter: ColorFilter.mode(Colors.blue, BlendMode.srcIn),
+    PersistentTabConfig(
+      screen: const PortofolioTab(),
+      item: ItemConfig(
+        title: "Portofolio",
+        icon: SvgPicture.asset(
+          'assets/icons/star.svg',
+          width: 24,
+          height: 24,
+          colorFilter: ColorFilter.mode(Colors.blue, BlendMode.srcIn),
+        ),
       ),
-      title: "Portofolio",
-      activeColorPrimary: Colors.blueAccent,
-      inactiveColorPrimary: Colors.grey,
     ),
-    PersistentBottomNavBarItem(
-      icon: SvgPicture.asset(
-        'assets/icons/trade.svg',
-        width: 24,
-        height: 24,
-        colorFilter: ColorFilter.mode(Colors.blue, BlendMode.srcIn),
+    PersistentTabConfig(
+      screen: const TradeTab(),
+      item: ItemConfig(
+        title: "Trade",
+        icon: SvgPicture.asset(
+          'assets/icons/trade.svg',
+          width: 24,
+          height: 24,
+          colorFilter: ColorFilter.mode(Colors.blue, BlendMode.srcIn),
+        ),
       ),
-      title: "Trade",
-      activeColorPrimary: Colors.blueAccent,
-      inactiveColorPrimary: Colors.grey,
     ),
-    PersistentBottomNavBarItem(
-      icon: SvgPicture.asset(
-        'assets/icons/wallet.svg',
-        width: 24,
-        height: 24,
-        colorFilter: ColorFilter.mode(Colors.blue, BlendMode.srcIn),
+    PersistentTabConfig(
+      screen: const WalletTab(),
+      item: ItemConfig(
+        title: "Wallet",
+        icon: SvgPicture.asset(
+          'assets/icons/wallet.svg',
+          width: 24,
+          height: 24,
+          colorFilter: ColorFilter.mode(Colors.blue, BlendMode.srcIn),
+        ),
       ),
-      title: "Wallet",
-      activeColorPrimary: Colors.blueAccent,
-      inactiveColorPrimary: Colors.grey,
     ),
-  ];
-
-  List<Widget> _buildScreens() => [
-    const MarketTab(),
-    const PortofolioTab(),
-    const TradeTab(),
-    const WalletTab(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: defaultBackground(context),
-        surfaceTintColor: defaultBackground(context),
-        actionsPadding: EdgeInsets.only(right: 4.0),
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 16,
-              backgroundColor: Colors.transparent,
-              backgroundImage: AssetImage('assets/app_logo.png'),
-            ),
-            SizedBox(width: 10.0),
-            Text(
-              'Vault Chain',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            tooltip: 'Pengaturan',
-            onPressed: () => Navigator.of(
-              context,
-              rootNavigator: true,
-            ).pushNamed('/setting'),
-            icon: Icon(Icons.settings),
-          ),
-        ],
+    return PersistentTabView(
+      tabs: _tabs(),
+      controller: _controller,
+      navBarBuilder: (navBarConfig) => Style8BottomNavBar(
+        navBarConfig: navBarConfig,
+        height: 65.0,
+        itemPadding: EdgeInsets.all(8.0),
+        navBarDecoration: NavBarDecoration(color: defaultBackground(context)),
       ),
-      body: PersistentTabView(
-        context,
-        controller: _controller,
-        screens: _buildScreens(),
-        items: _navBarsItems(),
-        backgroundColor: defaultBackground(context),
-        navBarHeight: 65.0,
-        hideNavigationBarWhenKeyboardAppears: true,
-        navBarStyle: NavBarStyle.style9,
-        onWillPop: (context) async {
-          SystemNavigator.pop(animated: true);
-          return true;
-        },
-        // hideOnScrollSettings: HideOnScrollSettings(
-        //   scrollControllers: [context.watch<ScrollProvider>().scrollController],
-        // ),
-        // onItemSelected: (value) {
-        //   setState(() {});
-        // },
-      ),
+      animatedTabBuilder:
+          (context, index, animationValue, newIndex, oldIndex, child) {
+            // No animation: return the child directly
+            return child;
+          },
     );
   }
 }

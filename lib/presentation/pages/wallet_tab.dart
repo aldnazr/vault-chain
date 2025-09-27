@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vault_chain/widgets/default_appbar.dart';
 
 class WalletTab extends StatefulWidget {
   const WalletTab({super.key});
@@ -10,6 +11,6 @@ class WalletTab extends StatefulWidget {
 class _WalletTabState extends State<WalletTab> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Wallet Tab'));
+    return Scaffold(appBar: DefaultAppbar());
   }
 }

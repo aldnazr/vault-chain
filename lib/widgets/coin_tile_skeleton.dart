@@ -11,7 +11,14 @@ class CoinTileSkeleton extends StatelessWidget {
         itemCount: 8,
         itemBuilder: (context, index) {
           return ListTile(
-            leading: Bone.circle(size: 48),
+            minTileHeight: 60,
+            contentPadding: EdgeInsets.only(
+              top: 0,
+              bottom: 0,
+              left: 18.0,
+              right: 16.0,
+            ),
+            leading: Bone.circle(size: 40),
             title: Bone.text(words: 2),
             subtitle: Bone.text(words: 1),
             trailing: Bone.text(words: 1),

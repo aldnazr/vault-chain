@@ -27,14 +27,15 @@ class CryptoTabBar extends StatelessWidget {
         return RefreshIndicator(
           onRefresh: () => marketProvider.fetchTopMarkets(),
           child: ListView.builder(
-            primary: false,
-            // controller: context.read<ScrollProvider>().scrollController,
+            padding: EdgeInsets.only(top: 3),
             itemCount: topMarket.length,
             itemBuilder: (context, index) {
               final coin = topMarket[index];
               return Column(
                 children: [
                   ListTile(
+                    key: ValueKey(coin.id),
+                    minTileHeight: 0,
                     contentPadding: EdgeInsets.only(
                       top: 0,
                       bottom: 0,
@@ -46,6 +47,7 @@ class CryptoTabBar extends StatelessWidget {
                       rootNavigator: true,
                     ).pushNamed('/detail_page', arguments: coin.id),
                     leading: CircleAvatar(
+                      radius: 18,
                       backgroundImage: NetworkImage(
                         coin.image.replaceAll('/large/', '/small_2x/'),
                       ),
@@ -54,7 +56,7 @@ class CryptoTabBar extends StatelessWidget {
                     title: Text(
                       coin.name,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -66,7 +68,7 @@ class CryptoTabBar extends StatelessWidget {
                         Text(
                           Formatter.formatCurrency(coin.currentPrice),
                           style: TextStyle(
-                            fontSize: 15.0,
+                            fontSize: 14.0,
                             fontWeight: FontWeight.bold,
                             color: defaultTitleColor(context),
                           ),
@@ -76,7 +78,7 @@ class CryptoTabBar extends StatelessWidget {
                             coin.priceChangePercentage24h,
                           ),
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 13,
                             color: coin.priceChangePercentage24h < 0
                                 ? Colors.red
                                 : Colors.green,
@@ -85,7 +87,7 @@ class CryptoTabBar extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Divider(height: 0, thickness: 0.7),
+                  const Divider(height: 0, thickness: 0.5),
                 ],
               );
             },

@@ -54,9 +54,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        home: const SplashPage(),
         initialRoute: '/',
         routes: {
-          '/': (context) => const SplashPage(),
+          // '/': (context) => const SplashPage(),
           '/home': (context) => const HomeScreen(),
           '/register': (context) => const RegisterPage(),
           '/login': (context) => const LoginPage(),
