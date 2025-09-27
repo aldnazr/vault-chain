@@ -15,14 +15,6 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   bool isObscure = true;
 
-  @override
-  void initState() {
-    super.initState();
-
-    _usernameController.clear();
-    _passwordController.clear();
-  }
-
   Future<void> login() async {
     if (formKey.currentState!.validate()) {
       final pref = await SharedPreferences.getInstance();
@@ -43,6 +35,16 @@ class _LoginPageState extends State<LoginPage> {
         ).showSnackBar(SnackBar(content: Text('Username atau Sandi salah')));
       }
     }
+  }
+
+  void _navigateToRegisterPage() {
+    Navigator.pushNamed(context, '/register');
+    _clearTextFields();
+  }
+
+  void _clearTextFields() {
+    _usernameController.clear();
+    _passwordController.clear();
   }
 
   @override
@@ -106,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Text('Belum punya akun? '),
                       InkWell(
-                        onTap: () => Navigator.pushNamed(context, '/register'),
+                        onTap: () => _navigateToRegisterPage(),
                         child: Text(
                           'Daftar',
                           style: TextStyle(

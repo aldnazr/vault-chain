@@ -34,8 +34,8 @@ class PortofolioTabState extends State<PortofolioTab> {
                             contentPadding: EdgeInsets.only(
                               top: 0,
                               bottom: 0,
-                              left: 18.0,
-                              right: 16.0,
+                              left: 20.0,
+                              right: 14.0,
                             ),
                             onTap: () => Navigator.of(
                               context,

@@ -19,6 +19,15 @@ class _RegisterPageState extends State<RegisterPage> {
   bool isObscure = true;
   bool isObscureConfirmPassword = true;
 
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+
+    super.dispose();
+  }
+
   Future<void> register() async {
     if (formKey.currentState!.validate()) {
       final pref = await SharedPreferences.getInstance();

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:vault_chain/core/utils/util.dart';
 
 class EmptyPortofolio extends StatelessWidget {
@@ -27,7 +26,8 @@ class EmptyPortofolio extends StatelessWidget {
                 ),
               ),
               Text(
-                'Tambahkan beberapa koin untuk mulai melacak harga mereka dan tetap mengikuti pergerakan.',
+                'Tambahkan beberapa koin untuk mulai melacak harga mereka'
+                'dan tetap mengikuti pergerakan.',
               ),
               ElevatedButton(
                 onPressed: () {},

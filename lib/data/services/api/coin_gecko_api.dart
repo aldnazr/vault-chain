@@ -46,4 +46,17 @@ class CoinGeckoApi {
       throw Exception("Failed to fetch data: ${response.statusCode}");
     }
   }
+
+  Future<List<CoinOhlc>> getNfts(String endpoint) async {
+    final url = Uri.parse("$_baseUrl$endpoint");
+
+    final response = await http.get(url, headers: _header);
+
+    if (response.statusCode == 200) {
+      final body = jsonDecode(response.body);
+      return (body as List).map((e) => CoinOhlc.fromList(e)).toList();
+    } else {
+      throw Exception("Failed to fetch data: ${response.statusCode}");
+    }
+  }
 }

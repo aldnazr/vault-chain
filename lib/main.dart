@@ -77,24 +77,31 @@ class MyApp extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-                color: Color.fromARGB(255, 224, 224, 224),
+                color: Theme.of(context).colorScheme.surfaceDim,
                 width: 1,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(width: 2),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.primaryFixedDim,
+                width: 2,
+              ),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.red, width: 1),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.error,
+                width: 1,
+              ),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.red, width: 2),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.onError,
+                width: 2,
+              ),
             ),
-            labelStyle: TextStyle(color: Colors.grey[700]),
-            errorStyle: TextStyle(color: Colors.red),
           ),
           filledButtonTheme: FilledButtonThemeData(
             style: ButtonStyle(
@@ -143,18 +150,25 @@ class MyApp extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(width: 2),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.onPrimaryFixedVariant,
+                width: 2,
+              ),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.red, width: 1),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.error,
+                width: 1,
+              ),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.red, width: 2),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.onError,
+                width: 2,
+              ),
             ),
-            labelStyle: TextStyle(color: Colors.grey[700]),
-            errorStyle: TextStyle(color: Colors.red),
           ),
           filledButtonTheme: FilledButtonThemeData(
             style: ButtonStyle(
@@ -171,7 +185,7 @@ class MyApp extends StatelessWidget {
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
               fixedSize: WidgetStateProperty.all(Size(double.maxFinite, 48)),
-              elevation: WidgetStateProperty.all<double>(2),
+              elevation: WidgetStateProperty.all<double>(1),
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
