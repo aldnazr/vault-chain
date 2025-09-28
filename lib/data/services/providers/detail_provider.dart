@@ -10,8 +10,9 @@ class DetailProvider with ChangeNotifier {
   String? error;
 
   CoinDetail? _coinDetail;
+  List<CoinOhlc>? _coinOhlc;
   CoinDetail? get coinDetail => _coinDetail;
-  List<CoinOhlc>? coinOhlc;
+  List<CoinOhlc>? get coinOhlc => _coinOhlc;
 
   Future<void> init() async {
     isLoading = true;
@@ -28,12 +29,15 @@ class DetailProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchDetail({String id = 'bitcoin'}) async {
+  Future<void> fetchDetail({String? id}) async {
     isLoading = true;
     error = null;
     notifyListeners();
 
     try {
+      while (id == null) {
+        await Future.delayed(const Duration(milliseconds: 100));
+      }
       _coinDetail = await _api.getDetails(Endpoint.details(id));
     } catch (e) {
       error = e.toString();
@@ -43,13 +47,16 @@ class DetailProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchOhlc({String id = 'bitcoin'}) async {
+  Future<void> fetchOhlc({String? id}) async {
     isLoading = true;
     error = null;
     notifyListeners();
 
     try {
-      coinOhlc = await _api.getOhlc(Endpoint.ohlc(id));
+      while (id == null) {
+        await Future.delayed(const Duration(milliseconds: 100));
+      }
+      _coinOhlc = await _api.getOhlc(Endpoint.ohlc(id));
     } catch (e) {
       error = e.toString();
     }

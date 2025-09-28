@@ -7,48 +7,51 @@ class MarketProvider with ChangeNotifier {
   final _api = CoinGeckoApi();
 
   bool isLoading = true;
+  bool isLoadingMore = false;
+  int currentPage = 1;
   String? error;
   List<MarketModel> markets = [];
-  List<MarketModel> topMarkets = [];
 
   Future<void> init() async {
     isLoading = true;
     notifyListeners();
 
-    // await fetchMarkets();
-    await fetchTopMarkets();
+    currentPage = 1;
+    markets.clear();
+    await fetchMarkets(page: currentPage);
 
     isLoading = false;
     notifyListeners();
   }
 
-  Future<void> fetchMarkets() async {
-    isLoading = true;
-    error = null;
-    notifyListeners();
-
+  Future<void> fetchMarkets({int page = 1}) async {
     try {
-      markets = await _api.getMarkets(Endpoint.markets());
+      final result = await _api.getMarkets(
+        Endpoint.markets(perPage: 20, page: page),
+      );
+
+      if (page == 1) {
+        markets = result;
+      } else {
+        markets.addAll(result);
+      }
+
+      notifyListeners();
     } catch (e) {
       error = e.toString();
+      notifyListeners();
     }
-
-    isLoading = false;
-    notifyListeners();
   }
 
-  Future<void> fetchTopMarkets() async {
-    isLoading = true;
-    error = null;
+  Future<void> fetchNextPage() async {
+    if (isLoadingMore) return;
+    isLoadingMore = true;
     notifyListeners();
 
-    try {
-      topMarkets = await _api.getMarkets(Endpoint.markets(perPage: 20));
-    } catch (e) {
-      error = e.toString();
-    }
+    currentPage++;
+    await fetchMarkets(page: currentPage);
 
-    isLoading = false;
+    isLoadingMore = false;
     notifyListeners();
   }
 }

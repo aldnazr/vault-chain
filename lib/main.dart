@@ -128,6 +128,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         theme: ThemeData(
+          fontFamily: 'SFPro',
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.blueAccent,
             surface: Colors.white,

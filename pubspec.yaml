@@ -39,6 +39,20 @@ flutter:
     - assets/app_logo.png
     - assets/icons/
     - assets/bitcoin.csv
+    
+  fonts:
+    - family: SFPro
+      fonts:
+        - asset: assets/fonts/sfpro/SF-Pro-Display-Regular.otf
+          weight: 400
+        - asset: assets/fonts/sfpro/SF-Pro-Display-Medium.otf
+          weight: 500
+        - asset: assets/fonts/sfpro/SF-Pro-Display-Semibold.otf
+          weight: 600
+        - asset: assets/fonts/sfpro/SF-Pro-Display-Bold.otf
+          weight: 700
+        - asset: assets/fonts/sfpro/SF-Pro-Display-RegularItalic.otf
+          style: italic
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

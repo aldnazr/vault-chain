@@ -1,8 +1,7 @@
 class Endpoint {
   static String markets({
     String vsCurrency = 'idr',
-    String? ids,
-    int perPage = 50,
+    int perPage = 20,
     int page = 1,
   }) {
     return '/coins/markets?vs_currency=$vsCurrency'

@@ -16,6 +16,7 @@ class MarketTab extends StatelessWidget {
           children: [
             TabBar(
               dividerHeight: 0.8,
+              labelStyle: TextStyle(fontWeight: FontWeight.bold),
               tabs: [
                 Tab(text: 'Crypto'),
                 Tab(text: 'NFT'),
