@@ -13,20 +13,18 @@ class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: defaultBackground(context),
       surfaceTintColor: defaultBackground(context),
       actionsPadding: EdgeInsets.only(right: 4.0),
-      title: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 16,
-            backgroundColor: Colors.transparent,
-            backgroundImage: AssetImage('assets/app_logo.png'),
-          ),
-          SizedBox(width: 10.0),
-          Text(
-            'Vault Chain',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-          ),
-        ],
+      leadingWidth: 50,
+      leading: Padding(
+        padding: EdgeInsets.only(left: 14),
+        child: CircleAvatar(
+          backgroundColor: Colors.transparent,
+          backgroundImage: AssetImage('assets/app_logo.png'),
+        ),
+      ),
+      titleSpacing: 10,
+      title: Text(
+        'Vault Chain',
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
       ),
       actions: [
         IconButton(

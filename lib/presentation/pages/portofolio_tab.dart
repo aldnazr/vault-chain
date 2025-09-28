@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vault_chain/data/model/portofolio_model.dart';
 import 'package:vault_chain/data/services/providers/portofolio_provider.dart';
 import 'package:vault_chain/widgets/default_appbar.dart';
 import 'package:vault_chain/widgets/empty_portofolio.dart';
@@ -39,12 +40,24 @@ class PortofolioTabState extends State<PortofolioTab> {
                               left: 20.0,
                               right: 14.0,
                             ),
-                            onTap: () => Navigator.of(
-                              context,
-                              rootNavigator: true,
-                            ).pushNamed('/detail_page', arguments: data.id),
+                            onTap: () =>
+                                Navigator.of(
+                                  context,
+                                  rootNavigator: true,
+                                ).pushNamed(
+                                  '/detail_page',
+                                  arguments: PortofolioModel(
+                                    id: data.id,
+                                    image: data.image,
+                                    name: data.name,
+                                    symbol: data.symbol,
+                                    marketCapRank: data.marketCapRank,
+                                  ),
+                                ),
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(data.image),
+                              backgroundImage: NetworkImage(
+                                data.image.replaceAll('/small_2x', 'small'),
+                              ),
                               backgroundColor: Colors.transparent,
                             ),
                             title: Text(data.name),

@@ -57,7 +57,6 @@ class MyApp extends StatelessWidget {
         home: const SplashPage(),
         initialRoute: '/',
         routes: {
-          // '/': (context) => const SplashPage(),
           '/home': (context) => const HomeScreen(),
           '/register': (context) => const RegisterPage(),
           '/login': (context) => const LoginPage(),
@@ -66,6 +65,11 @@ class MyApp extends StatelessWidget {
         },
         themeMode: themeProvider.themeMode,
         darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
+          textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'SFPro'),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.blueAccent,
+            brightness: Brightness.dark,
+          ),
           inputDecorationTheme: InputDecorationTheme(
             filled: false,
             border: OutlineInputBorder(

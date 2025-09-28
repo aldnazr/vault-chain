@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vault_chain/core/utils/formatter.dart';
-import 'package:vault_chain/core/utils/util.dart';
+import 'package:vault_chain/data/model/portofolio_model.dart';
 import 'package:vault_chain/data/services/providers/market_provider.dart';
 import 'package:vault_chain/widgets/coin_tile_skeleton.dart';
 
@@ -52,10 +52,17 @@ class CryptoTabBar extends StatelessWidget {
                         left: 18.0,
                         right: 16.0,
                       ),
-                      onTap: () => Navigator.of(
-                        context,
-                        rootNavigator: true,
-                      ).pushNamed('/detail_page', arguments: coin.id),
+                      onTap: () =>
+                          Navigator.of(context, rootNavigator: true).pushNamed(
+                            '/detail_page',
+                            arguments: PortofolioModel(
+                              id: coin.id,
+                              image: coin.image,
+                              name: coin.name,
+                              symbol: coin.symbol,
+                              marketCapRank: coin.marketCapRank,
+                            ),
+                          ),
                       leading: CircleAvatar(
                         radius: 18,
                         backgroundImage: NetworkImage(
@@ -67,7 +74,7 @@ class CryptoTabBar extends StatelessWidget {
                         coin.name,
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       subtitle: Text(coin.symbol.toUpperCase()),
@@ -79,8 +86,7 @@ class CryptoTabBar extends StatelessWidget {
                             Formatter.formatCurrency(coin.currentPrice),
                             style: TextStyle(
                               fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                              color: defaultTitleColor(context),
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           Text(
@@ -97,7 +103,7 @@ class CryptoTabBar extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Divider(height: 0, thickness: 0.5),
+                    const Divider(height: 0, thickness: 0.3),
                   ],
                 );
               },

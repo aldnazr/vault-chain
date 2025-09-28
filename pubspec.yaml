@@ -51,6 +51,10 @@ flutter:
           weight: 600
         - asset: assets/fonts/sfpro/SF-Pro-Display-Bold.otf
           weight: 700
+        - asset: assets/fonts/sfpro/SF-Pro-Display-Heavy.otf
+          weight: 800
+        - asset: assets/fonts/sfpro/SF-Pro-Display-Black.otf
+          weight: 900
         - asset: assets/fonts/sfpro/SF-Pro-Display-RegularItalic.otf
           style: italic
 

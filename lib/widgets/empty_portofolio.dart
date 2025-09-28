@@ -26,7 +26,7 @@ class EmptyPortofolio extends StatelessWidget {
                 ),
               ),
               Text(
-                'Tambahkan beberapa koin untuk mulai melacak harga mereka'
+                'Tambahkan beberapa koin untuk mulai melacak harga mereka '
                 'dan tetap mengikuti pergerakan.',
               ),
               ElevatedButton(

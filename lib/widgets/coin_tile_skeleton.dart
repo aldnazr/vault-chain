@@ -8,7 +8,7 @@ class CoinTileSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Skeletonizer.zone(
       child: ListView.builder(
-        itemCount: 8,
+        itemCount: 10,
         itemBuilder: (context, index) {
           return ListTile(
             minTileHeight: 60,

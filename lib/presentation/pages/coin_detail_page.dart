@@ -23,7 +23,7 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
   List<List<_BtcCandlestickData>>? _btcMonthlyData;
 
   late final List<String> monthsNames;
-  late String routeArgument;
+  late PortofolioModel routeArgument;
 
   final int minDays = 1;
   final int maxDays = 31;
@@ -61,7 +61,8 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    routeArgument = ModalRoute.of(context)!.settings.arguments as String;
+    routeArgument =
+        ModalRoute.of(context)!.settings.arguments as PortofolioModel;
     _loadDetailData();
   }
 
@@ -73,8 +74,8 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
   }
 
   Future<void> _loadDetailData() async {
-    context.read<DetailProvider>().fetchDetail(id: routeArgument);
-    context.read<DetailProvider>().fetchOhlc(id: routeArgument);
+    context.read<DetailProvider>().fetchDetail(id: routeArgument.id);
+    context.read<DetailProvider>().fetchOhlc(id: routeArgument.id);
   }
 
   void _loadData() async {
@@ -110,74 +111,98 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DetailProvider>(
-      builder: (context, detailProvider, child) {
-        final coinDetail = detailProvider.coinDetail;
-        if (detailProvider.isLoading ||
-            coinDetail == null ||
-            detailProvider.coinOhlc == null) {
-          return CoinDetailSkeleton();
-        }
-        _textCurrencyController.text = coinDetail.marketData.currentPrice['idr']
-            .toString();
-        if (detailProvider.error != null) {
-          return Center(child: Text("Error: ${detailProvider.error}"));
-        }
-
-        final porto = context.watch<PortofolioProvider>();
-        final fav = porto.isFavorite(coinDetail.id);
-
-        return Scaffold(
-          backgroundColor: defaultBackground(context),
-          appBar: AppBar(
-            titleSpacing: 0,
-            title: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+    final porto = context.watch<PortofolioProvider>();
+    final fav = porto.isFavorite(routeArgument.id);
+    return Scaffold(
+      backgroundColor: defaultBackground(context),
+      appBar: AppBar(
+        titleSpacing: 0,
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          spacing: 7.0,
+          children: [
+            CircleAvatar(
+              radius: 14,
+              backgroundImage: NetworkImage(
+                routeArgument.image.replaceAll('/large/', '/small/'),
+              ),
+              backgroundColor: Colors.transparent,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 14,
-                  backgroundImage: NetworkImage(coinDetail.image.small),
-                  backgroundColor: Colors.transparent,
-                ),
-                SizedBox(width: 6.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
+                  spacing: 3.0,
                   children: [
                     Text(
-                      coinDetail.symbol.toUpperCase(),
+                      routeArgument.symbol.toUpperCase(),
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
-                      coinDetail.name,
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: defaultContainer(context),
+                        borderRadius: BorderRadius.circular(3.5),
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+                      child: Text(
+                        '#${routeArgument.marketCapRank.toString()}',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ],
                 ),
+                Text(
+                  routeArgument.name.length > 20
+                      ? '${routeArgument.name.substring(0, 20)}…'
+                      : routeArgument.name,
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
               ],
             ),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  porto.toggleFavorite(
-                    PortofolioModel(
-                      coinDetail.id,
-                      coinDetail.name,
-                      coinDetail.symbol,
-                      coinDetail.image.small,
-                    ),
-                    true,
-                  );
-                },
-                isSelected: fav,
-                icon: Icon(Icons.star_border_outlined),
-                selectedIcon: Icon(Icons.star),
-              ),
-            ],
+          ],
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              porto.toggleFavorite(
+                PortofolioModel(
+                  id: routeArgument.id,
+                  name: routeArgument.name,
+                  symbol: routeArgument.symbol,
+                  image: routeArgument.image,
+                  marketCapRank: routeArgument.marketCapRank,
+                ),
+                true,
+              );
+            },
+            isSelected: fav,
+            icon: Icon(Icons.star_border_outlined),
+            selectedIcon: Icon(Icons.star),
           ),
-          body: RefreshIndicator(
+        ],
+      ),
+      body: Consumer<DetailProvider>(
+        builder: (context, detailProvider, child) {
+          final coinDetail = detailProvider.coinDetail;
+          if (detailProvider.isLoading ||
+              coinDetail == null ||
+              detailProvider.coinOhlc == null) {
+            return CoinDetailSkeleton();
+          }
+          _textCurrencyController.text = coinDetail
+              .marketData
+              .currentPrice['idr']
+              .toString();
+          if (detailProvider.error != null) {
+            return Center(child: Text("Error: ${detailProvider.error}"));
+          }
+          return RefreshIndicator(
             onRefresh: () => _loadDetailData(),
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(10.0),
@@ -318,8 +343,6 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                   ),
                   SizedBox(height: 8),
                   Card.outlined(
-                    // color: defaultBackground(context),
-                    borderOnForeground: false,
                     margin: EdgeInsets.all(0),
                     elevation: 0,
                     child: Padding(
@@ -341,7 +364,7 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                                     Text(
                                       e.key,
                                       style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w700,
                                       ),
                                     ),
                                     SizedBox(
@@ -355,6 +378,7 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                                         color: e.value >= 0
                                             ? Colors.green
                                             : Colors.red,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ],
@@ -376,21 +400,15 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            prefixIcon: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  radius: 10,
-                                  backgroundImage: NetworkImage(
-                                    coinDetail.image.thumb,
-                                  ),
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: CircleAvatar(
+                                radius: 1,
+                                backgroundImage: NetworkImage(
+                                  coinDetail.image.small,
                                 ),
-                                Text(
-                                  coinDetail.symbol.toUpperCase(),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
+                                backgroundColor: Colors.transparent,
+                              ),
                             ),
                           ),
                         ),
@@ -416,45 +434,45 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                 ],
               ),
             ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _bottomTitles(double value, TitleMeta meta) {
-    final day = value.toInt() + 1;
-
-    final isImportantToShow = day % 5 == 0 || day == 1;
-
-    if (!isImportantToShow) {
-      return const SizedBox();
-    }
-
-    return SideTitleWidget(
-      meta: meta,
-      child: Text(
-        day.toString(),
-        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          );
+        },
       ),
     );
   }
+}
 
-  Widget _leftTitles(double value, TitleMeta meta) {
-    return SideTitleWidget(
-      meta: meta,
-      child: Text(
-        meta.formattedValue,
-        style: const TextStyle(fontSize: 14, overflow: TextOverflow.ellipsis),
-      ),
-      // fitInside: SideTitleFitInsideData(
-      //   enabled: true,
-      //   axisPosition: 0,
-      //   distanceFromEdge: 0,
-      //   parentAxisSize: 0,
-      // ),
-    );
+Widget _bottomTitles(double value, TitleMeta meta) {
+  final day = value.toInt() + 1;
+
+  final isImportantToShow = day % 5 == 0 || day == 1;
+
+  if (!isImportantToShow) {
+    return const SizedBox();
   }
+
+  return SideTitleWidget(
+    meta: meta,
+    child: Text(
+      day.toString(),
+      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+    ),
+  );
+}
+
+Widget _leftTitles(double value, TitleMeta meta) {
+  return SideTitleWidget(
+    meta: meta,
+    child: Text(
+      meta.formattedValue,
+      style: const TextStyle(fontSize: 14, overflow: TextOverflow.ellipsis),
+    ),
+    // fitInside: SideTitleFitInsideData(
+    //   enabled: true,
+    //   axisPosition: 0,
+    //   distanceFromEdge: 0,
+    //   parentAxisSize: 0,
+    // ),
+  );
 }
 
 class _BtcCandlestickData with EquatableMixin {

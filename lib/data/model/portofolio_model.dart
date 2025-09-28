@@ -3,19 +3,33 @@ class PortofolioModel {
   final String symbol;
   final String name;
   final String image;
+  final int marketCapRank;
 
-  PortofolioModel(this.id, this.name, this.symbol, this.image);
+  PortofolioModel({
+    required this.id,
+    required this.name,
+    required this.symbol,
+    required this.image,
+    required this.marketCapRank,
+  });
 
   Map<String, dynamic> toMap() {
-    return {'id': id, 'symbol': symbol, 'name': name, 'image': image};
+    return {
+      'id': id,
+      'symbol': symbol,
+      'name': name,
+      'image': image,
+      'marketCapRank': marketCapRank,
+    };
   }
 
   factory PortofolioModel.fromMap(Map<dynamic, dynamic> map) {
     return PortofolioModel(
-      map['id'] as String,
-      map['name'] as String,
-      map['symbol'] as String,
-      map['image'] as String,
+      id: map['id'] as String,
+      name: map['name'] as String,
+      symbol: map['symbol'] as String,
+      image: map['image'] as String,
+      marketCapRank: map['marketCapRank'] as int,
     );
   }
 }

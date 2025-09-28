@@ -24,10 +24,10 @@ class MarketProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchMarkets({int page = 1}) async {
+  Future<void> fetchMarkets({int page = 1, int perPage = 20}) async {
     try {
       final result = await _api.getMarkets(
-        Endpoint.markets(perPage: 20, page: page),
+        Endpoint.markets(page: page, perPage: perPage),
       );
 
       if (page == 1) {
