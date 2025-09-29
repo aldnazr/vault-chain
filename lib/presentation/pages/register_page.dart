@@ -80,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 15,
                 children: [
                   Text(
                     'Registrasi',
@@ -88,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 50),
+                  SizedBox(height: 35),
                   TextFormField(
                     controller: _usernameController,
                     decoration: InputDecoration(
@@ -98,7 +99,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       counterText: "",
                     ),
                   ),
-                  SizedBox(height: 15),
                   TextFormField(
                     controller: _passwordController,
                     obscureText: isObscure,
@@ -119,7 +119,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
                   TextFormField(
                     controller: _confirmPasswordController,
                     obscureText: isObscureConfirmPassword,
@@ -140,12 +139,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
                   FilledButton(
                     onPressed: () => register(),
                     child: Text('Daftar'),
                   ),
-                  SizedBox(height: 14),
                   ElevatedButton(
                     onPressed: () => Navigator.pop(context),
                     child: Text('Masuk'),

@@ -1,11 +1,11 @@
 class MarketModel {
-  final String id;
-  final String symbol;
-  final String name;
-  final String image;
-  final num currentPrice;
-  final int marketCapRank;
-  final num priceChangePercentage24h;
+  final String? id;
+  final String? symbol;
+  final String? name;
+  final String? image;
+  final num? currentPrice;
+  final num? marketCapRank;
+  final num? priceChangePercentage24h;
 
   MarketModel({
     required this.id,

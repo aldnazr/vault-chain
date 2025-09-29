@@ -58,10 +58,10 @@ class _LoginPageState extends State<LoginPage> {
               key: formKey,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
+                spacing: 15,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset('assets/app_logo.png', scale: 7),
-                  SizedBox(height: 6),
                   Text(
                     'Vault Chain',
                     style: TextStyle(
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 15),
                   TextFormField(
                     controller: _usernameController,
                     decoration: InputDecoration(
@@ -79,7 +79,6 @@ class _LoginPageState extends State<LoginPage> {
                       counterText: "",
                     ),
                   ),
-                  SizedBox(height: 15),
                   TextFormField(
                     controller: _passwordController,
                     obscureText: isObscure,
@@ -100,9 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
                   FilledButton(onPressed: () => login(), child: Text('Login')),
-                  SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

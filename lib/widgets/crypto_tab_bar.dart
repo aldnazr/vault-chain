@@ -4,6 +4,8 @@ import 'package:vault_chain/core/utils/formatter.dart';
 import 'package:vault_chain/data/model/portofolio_model.dart';
 import 'package:vault_chain/data/services/providers/market_provider.dart';
 import 'package:vault_chain/widgets/coin_tile_skeleton.dart';
+import 'package:vault_chain/widgets/error_handler.dart';
+import 'package:vault_chain/widgets/null_text.dart';
 
 class CryptoTabBar extends StatelessWidget {
   const CryptoTabBar({super.key});
@@ -12,15 +14,18 @@ class CryptoTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<MarketProvider>(
       builder: (context, marketProvider, _) {
-        final topMarket = marketProvider.markets;
+        final market = marketProvider.markets;
 
         if (marketProvider.isLoading) {
           return CoinTileSkeleton();
         }
         if (marketProvider.error != null) {
-          return Center(child: Text("Error: ${marketProvider.error}"));
+          return ErrorHandler(
+            errorText: "Error: ${marketProvider.error}",
+            onPressed: () async => await marketProvider.init(),
+          );
         }
-        if (topMarket.isEmpty) {
+        if (market.isEmpty) {
           return const Center(child: Text("No data found"));
         }
 
@@ -38,9 +43,10 @@ class CryptoTabBar extends StatelessWidget {
             },
             child: ListView.builder(
               padding: EdgeInsets.only(top: 3),
-              itemCount: topMarket.length,
+              itemCount: market.length,
               itemBuilder: (context, index) {
-                final coin = topMarket[index];
+                final coin = market[index];
+
                 return Column(
                   children: [
                     ListTile(
@@ -56,50 +62,54 @@ class CryptoTabBar extends StatelessWidget {
                           Navigator.of(context, rootNavigator: true).pushNamed(
                             '/detail_page',
                             arguments: PortofolioModel(
-                              id: coin.id,
-                              image: coin.image,
-                              name: coin.name,
-                              symbol: coin.symbol,
-                              marketCapRank: coin.marketCapRank,
+                              id: coin.id!,
+                              image: coin.image!,
+                              name: coin.name!,
+                              symbol: coin.symbol!,
+                              marketCapRank: coin.marketCapRank!,
                             ),
                           ),
                       leading: CircleAvatar(
                         radius: 18,
                         backgroundImage: NetworkImage(
-                          coin.image.replaceAll('/large/', '/small_2x/'),
+                          coin.image!.replaceAll('/large/', '/small_2x/'),
                         ),
                         backgroundColor: Colors.transparent,
                       ),
                       title: Text(
-                        coin.name,
+                        coin.name!,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      subtitle: Text(coin.symbol.toUpperCase()),
+                      subtitle: Text(coin.symbol!.toUpperCase()),
                       trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
-                            Formatter.formatCurrency(coin.currentPrice),
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Text(
-                            Formatter.formatPercent(
-                              coin.priceChangePercentage24h,
-                            ),
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: coin.priceChangePercentage24h < 0
-                                  ? Colors.red
-                                  : Colors.green,
-                            ),
-                          ),
+                          coin.currentPrice == null
+                              ? NullText()
+                              : Text(
+                                  Formatter.formatCurrency(coin.currentPrice!),
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                          coin.priceChangePercentage24h == null
+                              ? NullText()
+                              : Text(
+                                  Formatter.formatPercent(
+                                    coin.priceChangePercentage24h!,
+                                  ),
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: coin.priceChangePercentage24h! < 0
+                                        ? Colors.red
+                                        : Colors.green,
+                                  ),
+                                ),
                         ],
                       ),
                     ),

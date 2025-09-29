@@ -111,7 +111,7 @@ class MyApp extends StatelessWidget {
           filledButtonTheme: FilledButtonThemeData(
             style: ButtonStyle(
               fixedSize: WidgetStateProperty.all(Size(double.maxFinite, 48)),
-              elevation: WidgetStateProperty.all<double>(2),
+              elevation: WidgetStateProperty.all(2),
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -122,7 +122,7 @@ class MyApp extends StatelessWidget {
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
               fixedSize: WidgetStateProperty.all(Size(double.maxFinite, 48)),
-              elevation: WidgetStateProperty.all<double>(2),
+              elevation: WidgetStateProperty.all(2),
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -180,7 +180,7 @@ class MyApp extends StatelessWidget {
             style: ButtonStyle(
               fixedSize: WidgetStateProperty.all(Size(double.maxFinite, 48)),
               foregroundColor: WidgetStateProperty.all(Colors.white),
-              elevation: WidgetStateProperty.all<double>(2),
+              elevation: WidgetStateProperty.all(2),
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -191,7 +191,7 @@ class MyApp extends StatelessWidget {
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
               fixedSize: WidgetStateProperty.all(Size(double.maxFinite, 48)),
-              elevation: WidgetStateProperty.all<double>(1),
+              elevation: WidgetStateProperty.all(1),
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),

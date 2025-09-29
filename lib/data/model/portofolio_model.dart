@@ -3,7 +3,7 @@ class PortofolioModel {
   final String symbol;
   final String name;
   final String image;
-  final int marketCapRank;
+  final num marketCapRank;
 
   PortofolioModel({
     required this.id,
