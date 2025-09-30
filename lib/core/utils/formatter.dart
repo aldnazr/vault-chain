@@ -19,6 +19,6 @@ class Formatter {
     final formatted = formatter.format(
       double.parse(percentage.toStringAsFixed(2)),
     );
-    return '${formatted.replaceFirst('', percentage <= 0 ? '' : '+')}%';
+    return '${formatted.replaceFirst('-', '')}%';
   }
 }

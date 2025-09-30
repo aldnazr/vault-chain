@@ -71,7 +71,7 @@ class CryptoTabBar extends StatelessWidget {
                           ),
                       leading: CircleAvatar(
                         radius: 18,
-                        backgroundImage: NetworkImage(
+                        foregroundImage: NetworkImage(
                           coin.image!.replaceAll('/large/', '/small_2x/'),
                         ),
                         backgroundColor: Colors.transparent,
@@ -99,21 +99,36 @@ class CryptoTabBar extends StatelessWidget {
                                 ),
                           coin.priceChangePercentage24h == null
                               ? NullText()
-                              : Text(
-                                  Formatter.formatPercent(
-                                    coin.priceChangePercentage24h!,
-                                  ),
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: coin.priceChangePercentage24h! < 0
-                                        ? Colors.red
-                                        : Colors.green,
-                                  ),
+                              : Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    coin.priceChangePercentage24h! <= 0
+                                        ? Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.red,
+                                          )
+                                        : Icon(
+                                            Icons.arrow_drop_up,
+                                            color: Colors.green,
+                                          ),
+                                    Text(
+                                      Formatter.formatPercent(
+                                        coin.priceChangePercentage24h!,
+                                      ),
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color:
+                                            coin.priceChangePercentage24h! < 0
+                                            ? Colors.red
+                                            : Colors.green,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                         ],
                       ),
                     ),
-                    const Divider(height: 0, thickness: 0.3),
+                    const Divider(height: 0, thickness: 1),
                   ],
                 );
               },

@@ -9,7 +9,7 @@ class NullText extends StatelessWidget {
       width: 40,
       height: 20,
       child: Card(
-        elevation: 0.5,
+        elevation: 0,
         margin: EdgeInsets.all(0),
         child: Center(
           child: Text('Null', style: TextStyle(fontWeight: FontWeight.w500)),

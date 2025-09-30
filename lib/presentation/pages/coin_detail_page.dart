@@ -27,8 +27,6 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
 
   late final List<String> monthsNames;
   late PortofolioModel routeArgument;
-  late PortofolioProvider porto;
-  late bool fav;
 
   final int minDays = 1;
   final int maxDays = 31;
@@ -39,6 +37,9 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
 
   @override
   void initState() {
+    super.initState();
+    _initAwait();
+
     monthsNames = [
       'January',
       'February',
@@ -53,13 +54,12 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
       'November',
       'December',
     ];
-    _loadData();
+
     _gridLine = FlLine(
       color: Colors.blueGrey.withValues(alpha: 0.4),
       strokeWidth: 0.8,
       // dashArray: [8, 4],
     );
-    super.initState();
   }
 
   @override
@@ -67,7 +67,7 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
     super.didChangeDependencies();
     routeArgument =
         ModalRoute.of(context)!.settings.arguments as PortofolioModel;
-    _loadDetailData();
+    context.read<DetailProvider>().init(routeArgument.id);
   }
 
   @override
@@ -77,19 +77,9 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
     super.dispose();
   }
 
-  Future<void> _loadDetailData() async {
-    context.read<DetailProvider>().fetchDetail(id: routeArgument.id);
-    context.read<DetailProvider>().fetchOhlc(id: routeArgument.id);
-    porto = context.watch<PortofolioProvider>();
-    fav = porto.isFavorite(routeArgument.id);
-  }
-
-  void _loadData() async {
+  void _initAwait() async {
     final data = await rootBundle.loadString('assets/bitcoin.csv');
     final rows = CsvParser.parse(data);
-    if (!mounted) {
-      return;
-    }
     setState(() {
       final allData = rows.skip(1).map((row) {
         // 2023-12-31,2024-01-01
@@ -148,6 +138,8 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
     return Scaffold(
       backgroundColor: defaultBackground(context),
       appBar: AppBar(
+        backgroundColor: defaultBackground(context),
+        surfaceTintColor: defaultBackground(context),
         titleSpacing: 0,
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -200,22 +192,27 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
           ],
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              porto.toggleFavorite(
-                PortofolioModel(
-                  id: routeArgument.id,
-                  name: routeArgument.name,
-                  symbol: routeArgument.symbol,
-                  image: routeArgument.image,
-                  marketCapRank: routeArgument.marketCapRank,
-                ),
-                true,
+          Consumer<PortofolioProvider>(
+            builder: (context, porto, child) {
+              final fav = porto.isFavorite(routeArgument.id);
+              return IconButton(
+                onPressed: () {
+                  porto.toggleFavorite(
+                    PortofolioModel(
+                      id: routeArgument.id,
+                      name: routeArgument.name,
+                      symbol: routeArgument.symbol,
+                      image: routeArgument.image,
+                      marketCapRank: routeArgument.marketCapRank,
+                    ),
+                    true,
+                  );
+                },
+                isSelected: fav,
+                icon: Icon(Icons.star_border_outlined),
+                selectedIcon: Icon(Icons.star, color: Colors.yellow),
               );
             },
-            isSelected: fav,
-            icon: Icon(Icons.star_border_outlined),
-            selectedIcon: Icon(Icons.star),
           ),
         ],
       ),
@@ -232,40 +229,62 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
           if (detailProvider.error != null) {
             ErrorHandler(
               errorText: 'Error: ${detailProvider.error}',
-              onPressed: () async => await detailProvider.init(),
+              onPressed: () async =>
+                  await detailProvider.init(routeArgument.id),
             );
           }
           return RefreshIndicator(
-            onRefresh: () => _loadDetailData(),
+            onRefresh: () async => await detailProvider.init(routeArgument.id),
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(10.0),
               physics: AlwaysScrollableScrollPhysics(),
               child: Column(
                 children: [
-                  Row(
-                    spacing: 4,
-                    children: [
-                      Text(
-                        Formatter.formatCurrency(
-                          coinDetail.marketData.currentPrice['idr']!,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: Row(
+                      spacing: 6,
+                      children: [
+                        Text(
+                          Formatter.formatCurrency(
+                            coinDetail.marketData.currentPrice['idr']!,
+                          ),
+                          style: TextStyle(
+                            fontSize: 26.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        style: TextStyle(
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      coinDetail.marketData.changes['24h'] == null
-                          ? NullText()
-                          : Text(
-                              '${Formatter.formatPercent(coinDetail.marketData.changes['24h']!)}(24H)',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: coinDetail.marketData.changes['24h']! < 0
-                                    ? Colors.red
-                                    : Colors.green,
+                        coinDetail.marketData.changes['24h'] == null
+                            ? NullText()
+                            : Row(
+                                children: [
+                                  coinDetail.marketData.changes['24h']! <= 0
+                                      ? Icon(
+                                          Icons.arrow_drop_down,
+                                          color: Colors.red,
+                                        )
+                                      : Icon(
+                                          Icons.arrow_drop_up,
+                                          color: Colors.green,
+                                        ),
+                                  Text(
+                                    '${Formatter.formatPercent(coinDetail.marketData.changes['24h']!)}(24H)',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color:
+                                          coinDetail
+                                                  .marketData
+                                                  .changes['24h']! <
+                                              0
+                                          ? Colors.red
+                                          : Colors.green,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 25),
                   AspectRatio(
@@ -379,8 +398,6 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                   ),
                   SizedBox(height: 8),
                   Card.outlined(
-                    margin: EdgeInsets.all(0),
-                    elevation: 0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         vertical: 12.0,
@@ -400,12 +417,12 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                                     Text(
                                       e.key,
                                       style: TextStyle(
-                                        fontWeight: FontWeight.w700,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                     SizedBox(
                                       width: double.infinity,
-                                      child: Divider(),
+                                      child: Divider(thickness: 1.5),
                                     ),
                                     e.value == null
                                         ? NullText()
@@ -416,7 +433,7 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                                               color: e.value! >= 0
                                                   ? Colors.green
                                                   : Colors.red,
-                                              fontWeight: FontWeight.w600,
+                                              fontWeight: FontWeight.w500,
                                             ),
                                           ),
                                   ],
@@ -434,18 +451,17 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                       Expanded(
                         child: TextField(
                           controller: _textCoinController,
+                          keyboardType: TextInputType.number,
+                          style: TextStyle(fontSize: 14, height: 1.8),
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
                             prefixIcon: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: CircleAvatar(
                                 radius: 1,
-                                backgroundImage: NetworkImage(
+                                foregroundImage: NetworkImage(
                                   coinDetail.image.small,
                                 ),
-                                backgroundColor: Colors.transparent,
+                                foregroundColor: Colors.transparent,
                               ),
                             ),
                           ),
@@ -457,14 +473,18 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                       Expanded(
                         child: TextField(
                           controller: _textCurrencyController,
+                          keyboardType: TextInputType.number,
+                          style: TextStyle(fontSize: 14, height: 1.8),
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
                             prefixIcon: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [Text('IDR')],
+                              children: [
+                                Text(
+                                  'IDR',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                              ],
                             ),
                           ),
                           onChanged: (value) {

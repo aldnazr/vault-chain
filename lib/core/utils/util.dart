@@ -11,3 +11,11 @@ Color defaultContainer(BuildContext context) {
 Color defaultTitleColor(BuildContext context) {
   return Theme.of(context).textTheme.titleMedium!.color!;
 }
+
+Color lightBorderColor() {
+  return const Color(0xFFEFF2F5);
+}
+
+Color darkBorderColor() {
+  return const Color(0xFF212D3B);
+}

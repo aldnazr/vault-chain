@@ -24,7 +24,7 @@ class ErrorHandler extends StatelessWidget {
               elevation: WidgetStateProperty.all(1),
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100.0),
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
               ),
               fixedSize: WidgetStateProperty.all(Size(double.infinity, 40)),

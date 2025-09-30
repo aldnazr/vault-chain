@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:vault_chain/core/utils/util.dart';
+import 'package:vault_chain/data/services/providers/detail_provider.dart';
+import 'package:vault_chain/data/services/providers/filter_provider.dart';
+import 'package:vault_chain/data/services/providers/market_provider.dart';
 import 'package:vault_chain/data/services/providers/portofolio_provider.dart';
+import 'package:vault_chain/data/services/providers/scroll_provider.dart';
+import 'package:vault_chain/data/services/providers/theme_provider.dart';
 import 'package:vault_chain/presentation/pages/coin_detail_page.dart';
 import 'package:vault_chain/presentation/pages/home_screen.dart';
 import 'package:vault_chain/presentation/pages/login_page.dart';
 import 'package:vault_chain/presentation/pages/register_page.dart';
 import 'package:vault_chain/presentation/pages/setting_page.dart';
 import 'package:vault_chain/presentation/pages/splash_screen.dart';
-import 'package:vault_chain/data/services/providers/detail_provider.dart';
-import 'package:vault_chain/data/services/providers/filter_provider.dart';
-import 'package:vault_chain/data/services/providers/market_provider.dart';
-import 'package:vault_chain/data/services/providers/scroll_provider.dart';
-import 'package:vault_chain/data/services/providers/theme_provider.dart';
 
 final ValueNotifier<Key> appKeyNotifier = ValueNotifier(Key('initial'));
 
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => MarketProvider()..init()),
         ChangeNotifierProvider(
-          create: (_) => DetailProvider()..init(),
+          create: (_) => DetailProvider(),
           child: CoinDetailPage(),
         ),
         ChangeNotifierProvider(create: (_) => FilterProvider()),
@@ -65,33 +66,33 @@ class MyApp extends StatelessWidget {
         },
         themeMode: themeProvider.themeMode,
         darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
+          dividerTheme: DividerThemeData(color: darkBorderColor()),
           textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'SFPro'),
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.blueAccent,
             brightness: Brightness.dark,
           ),
-          inputDecorationTheme: InputDecorationTheme(
-            filled: false,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Color.fromARGB(255, 224, 224, 224),
-                width: 1,
+          cardTheme: CardThemeData(
+            margin: EdgeInsets.all(0),
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusGeometry.circular(12),
+              side: BorderSide(
+                style: BorderStyle.solid,
+                color: darkBorderColor(),
+                width: 2,
               ),
             ),
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+            filled: false,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.surfaceDim,
-                width: 1,
-              ),
+              borderSide: BorderSide(color: darkBorderColor(), width: 2),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.primaryFixedDim,
-                width: 2,
-              ),
+              borderSide: BorderSide(color: darkBorderColor(), width: 2),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
@@ -132,40 +133,40 @@ class MyApp extends StatelessWidget {
           ),
         ),
         theme: ThemeData(
+          dividerTheme: DividerThemeData(color: lightBorderColor()),
           fontFamily: 'SFPro',
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.blueAccent,
             surface: Colors.white,
           ),
+          cardTheme: CardThemeData(
+            margin: EdgeInsets.all(0),
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusGeometry.circular(12),
+              side: BorderSide(
+                style: BorderStyle.solid,
+                color: lightBorderColor(),
+                width: 2,
+              ),
+            ),
+          ),
           scaffoldBackgroundColor: Colors.white,
           inputDecorationTheme: InputDecorationTheme(
             filled: false,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Color.fromARGB(255, 224, 224, 224),
-                width: 1,
-              ),
-            ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Color.fromARGB(255, 224, 224, 224),
-                width: 1,
-              ),
+              borderSide: BorderSide(color: lightBorderColor(), width: 2),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.onPrimaryFixedVariant,
-                width: 2,
-              ),
+              borderSide: BorderSide(color: lightBorderColor(), width: 2),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(
                 color: Theme.of(context).colorScheme.error,
-                width: 1,
+                width: 2,
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(

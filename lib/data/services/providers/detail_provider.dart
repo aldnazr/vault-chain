@@ -14,13 +14,14 @@ class DetailProvider with ChangeNotifier {
   CoinDetail? get coinDetail => _coinDetail;
   List<CoinOhlc>? get coinOhlc => _coinOhlc;
 
-  Future<void> init() async {
+  Future<void> init(String id) async {
     isLoading = true;
+    error = null;
     notifyListeners();
 
     try {
-      await fetchDetail();
-      await fetchOhlc();
+      await fetchDetail(id, notify: false);
+      await fetchOhlc(id, notify: false);
     } catch (e) {
       error = e.toString();
     }
@@ -29,39 +30,41 @@ class DetailProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchDetail({String? id}) async {
-    isLoading = true;
-    error = null;
-    notifyListeners();
+  Future<void> fetchDetail(String id, {bool notify = true}) async {
+    if (notify) {
+      isLoading = true;
+      error = null;
+      notifyListeners();
+    }
 
     try {
-      while (id == null) {
-        await Future.delayed(const Duration(milliseconds: 100));
-      }
       _coinDetail = await _api.getDetails(Endpoint.details(id));
     } catch (e) {
       error = e.toString();
     }
 
-    isLoading = false;
-    notifyListeners();
+    if (notify) {
+      isLoading = false;
+      notifyListeners();
+    }
   }
 
-  Future<void> fetchOhlc({String? id}) async {
-    isLoading = true;
-    error = null;
-    notifyListeners();
+  Future<void> fetchOhlc(String id, {bool notify = true}) async {
+    if (notify) {
+      isLoading = true;
+      error = null;
+      notifyListeners();
+    }
 
     try {
-      while (id == null) {
-        await Future.delayed(const Duration(milliseconds: 100));
-      }
       _coinOhlc = await _api.getOhlc(Endpoint.ohlc(id));
     } catch (e) {
       error = e.toString();
     }
 
-    isLoading = false;
-    notifyListeners();
+    if (notify) {
+      isLoading = false;
+      notifyListeners();
+    }
   }
 }

@@ -55,7 +55,7 @@ class PortofolioTabState extends State<PortofolioTab> {
                                   ),
                                 ),
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
+                              foregroundImage: NetworkImage(
                                 data.image.replaceAll('/small_2x', 'small'),
                               ),
                               backgroundColor: Colors.transparent,
@@ -68,11 +68,14 @@ class PortofolioTabState extends State<PortofolioTab> {
                               },
                               isSelected: fav,
                               icon: Icon(Icons.star_border_outlined),
-                              selectedIcon: Icon(Icons.star),
+                              selectedIcon: Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                              ),
                             ),
                           ),
                           if (index < porto.portofolio.length - 1)
-                            const Divider(height: 0, thickness: 0.7),
+                            const Divider(height: 0, thickness: 1),
                         ],
                       );
                     },
