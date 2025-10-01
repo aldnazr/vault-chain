@@ -14,6 +14,7 @@ import 'package:vault_chain/data/services/providers/portofolio_provider.dart';
 import 'package:vault_chain/widgets/coin_detail_skeleton.dart';
 import 'package:vault_chain/widgets/error_handler.dart';
 import 'package:vault_chain/widgets/null_text.dart';
+import 'package:vault_chain/widgets/price_change_icon.dart';
 
 class CoinDetailPage extends StatefulWidget {
   const CoinDetailPage({super.key});
@@ -156,7 +157,7 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  spacing: 3.0,
+                  spacing: 4.0,
                   children: [
                     Text(
                       routeArgument.symbol.toUpperCase(),
@@ -165,17 +166,21 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: defaultContainer(context),
-                        borderRadius: BorderRadius.circular(3.5),
+                    Card.filled(
+                      color: defaultPrimaryContainer(context),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
                       ),
-                      padding: EdgeInsets.symmetric(vertical: 1, horizontal: 4),
-                      child: Text(
-                        '#${routeArgument.marketCapRank.toString()}',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.bold,
+                      // padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Text(
+                          '#${routeArgument.marketCapRank.toString()}',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: defaultOnPrimaryContainer(context),
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
@@ -185,7 +190,11 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                   routeArgument.name.length > 20
                       ? '${routeArgument.name.substring(0, 20)}…'
                       : routeArgument.name,
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: defaultOnPrimaryContainer(context),
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ],
             ),
@@ -243,7 +252,6 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                   Padding(
                     padding: const EdgeInsets.only(left: 4.0),
                     child: Row(
-                      spacing: 6,
                       children: [
                         Text(
                           Formatter.formatCurrency(
@@ -258,15 +266,9 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                             ? NullText()
                             : Row(
                                 children: [
-                                  coinDetail.marketData.changes['24h']! <= 0
-                                      ? Icon(
-                                          Icons.arrow_drop_down,
-                                          color: Colors.red,
-                                        )
-                                      : Icon(
-                                          Icons.arrow_drop_up,
-                                          color: Colors.green,
-                                        ),
+                                  PriceChangeIcon(
+                                    coinDetail.marketData.changes['24h']! <= 0,
+                                  ),
                                   Text(
                                     '${Formatter.formatPercent(coinDetail.marketData.changes['24h']!)}(24H)',
                                     style: TextStyle(

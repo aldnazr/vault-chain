@@ -6,6 +6,7 @@ import 'package:vault_chain/data/services/providers/market_provider.dart';
 import 'package:vault_chain/widgets/coin_tile_skeleton.dart';
 import 'package:vault_chain/widgets/error_handler.dart';
 import 'package:vault_chain/widgets/null_text.dart';
+import 'package:vault_chain/widgets/price_change_icon.dart';
 
 class CryptoTabBar extends StatelessWidget {
   const CryptoTabBar({super.key});
@@ -102,15 +103,9 @@ class CryptoTabBar extends StatelessWidget {
                               : Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    coin.priceChangePercentage24h! <= 0
-                                        ? Icon(
-                                            Icons.arrow_drop_down,
-                                            color: Colors.red,
-                                          )
-                                        : Icon(
-                                            Icons.arrow_drop_up,
-                                            color: Colors.green,
-                                          ),
+                                    PriceChangeIcon(
+                                      coin.priceChangePercentage24h! <= 0,
+                                    ),
                                     Text(
                                       Formatter.formatPercent(
                                         coin.priceChangePercentage24h!,

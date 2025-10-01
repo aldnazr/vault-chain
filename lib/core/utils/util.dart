@@ -19,3 +19,27 @@ Color lightBorderColor() {
 Color darkBorderColor() {
   return const Color(0xFF212D3B);
 }
+
+Color customDarkContainer() {
+  return Color(0xFF1B232D);
+}
+
+Color customDarkOnContainer() {
+  return Color(0xFF8EA3BE);
+}
+
+Color customLightContainer() {
+  return Color(0xFFF1F5F9);
+}
+
+Color customLightOnContainer() {
+  return Color(0xFF64748B);
+}
+
+Color defaultPrimaryContainer(BuildContext context) {
+  return Theme.of(context).colorScheme.primaryContainer;
+}
+
+Color defaultOnPrimaryContainer(BuildContext context) {
+  return Theme.of(context).colorScheme.onPrimaryContainer;
+}

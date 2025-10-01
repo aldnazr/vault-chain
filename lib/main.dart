@@ -71,6 +71,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.blueAccent,
             brightness: Brightness.dark,
+            primaryContainer: customDarkContainer(),
+            onPrimaryContainer: customDarkOnContainer(),
           ),
           cardTheme: CardThemeData(
             margin: EdgeInsets.all(0),
@@ -138,6 +140,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.blueAccent,
             surface: Colors.white,
+            primaryContainer: customLightContainer(),
+            onPrimaryContainer: customLightOnContainer(),
           ),
           cardTheme: CardThemeData(
             margin: EdgeInsets.all(0),
