@@ -186,14 +186,16 @@ class _CoinDetailPageState extends State<CoinDetailPage> {
                     ),
                   ],
                 ),
-                Text(
-                  routeArgument.name.length > 20
-                      ? '${routeArgument.name.substring(0, 20)}…'
-                      : routeArgument.name,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: defaultOnPrimaryContainer(context),
-                    fontWeight: FontWeight.w500,
+                SizedBox(
+                  width: 150,
+                  child: Text(
+                    routeArgument.name,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: defaultOnPrimaryContainer(context),
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],
