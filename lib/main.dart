@@ -6,6 +6,7 @@ import 'package:vault_chain/core/utils/util.dart';
 import 'package:vault_chain/data/services/providers/detail_provider.dart';
 import 'package:vault_chain/data/services/providers/filter_provider.dart';
 import 'package:vault_chain/data/services/providers/market_provider.dart';
+import 'package:vault_chain/data/services/providers/nft_provider.dart';
 import 'package:vault_chain/data/services/providers/portofolio_provider.dart';
 import 'package:vault_chain/data/services/providers/scroll_provider.dart';
 import 'package:vault_chain/data/services/providers/theme_provider.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MarketProvider()..init()),
+        ChangeNotifierProvider(create: (_) => NftProvider()..init()),
         ChangeNotifierProvider(
           create: (_) => DetailProvider(),
           child: CoinDetailPage(),

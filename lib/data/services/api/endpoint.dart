@@ -26,7 +26,15 @@ class Endpoint {
     return '/coins/$coinId/ohlc?vs_currency=$vsCurrency&days=$days';
   }
 
-  static String nfts({int perPage = 20, int page = 1}) {
-    return "/nfts/list";
+  static String nfts({
+    String order = 'market_cap_usd_desc',
+    int perPage = 20,
+    int page = 1,
+  }) {
+    return "/nfts/list?order=$order&per_page=$perPage&$page=$page";
+  }
+
+  static String nftById(String id) {
+    return "/nfts/$id";
   }
 }

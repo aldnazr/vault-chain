@@ -1,9 +1,9 @@
 class NftCollection {
-  final String id;
-  final String contractAddress;
-  final String name;
-  final String assetPlatformId;
-  final String symbol;
+  final String? id;
+  final String? contractAddress;
+  final String? name;
+  final String? assetPlatformId;
+  final String? symbol;
 
   NftCollection({
     required this.id,
@@ -15,11 +15,11 @@ class NftCollection {
 
   factory NftCollection.fromJson(Map<String, dynamic> json) {
     return NftCollection(
-      id: json['id'] as String,
-      contractAddress: json['contract_address'] as String,
-      name: json['name'] as String,
-      assetPlatformId: json['asset_platform_id'] as String,
-      symbol: json['symbol'] as String,
+      id: json['id'],
+      contractAddress: json['contract_address'],
+      name: json['name'],
+      assetPlatformId: json['asset_platform_id'],
+      symbol: json['symbol'],
     );
   }
 

@@ -44,10 +44,16 @@ class CryptoTabBar extends StatelessWidget {
             },
             child: ListView.builder(
               padding: EdgeInsets.only(top: 3),
-              itemCount: market.length,
+              itemCount: market.length + (marketProvider.isLoadingMore ? 1 : 0),
               itemBuilder: (context, index) {
+                if (index == market.length) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      padding: EdgeInsets.all(16),
+                    ),
+                  );
+                }
                 final coin = market[index];
-
                 return Column(
                   children: [
                     ListTile(
