@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,6 @@ import 'package:vault_chain/presentation/pages/home_screen.dart';
 import 'package:vault_chain/presentation/pages/login_page.dart';
 import 'package:vault_chain/presentation/pages/register_page.dart';
 import 'package:vault_chain/presentation/pages/setting_page.dart';
-import 'package:vault_chain/presentation/pages/splash_screen.dart';
 
 final ValueNotifier<Key> appKeyNotifier = ValueNotifier(Key('initial'));
 
@@ -25,19 +25,24 @@ void main() async {
   final dir = await getApplicationDocumentsDirectory();
   Hive.init(dir.path);
 
+  // Cek login
+  final bool isLoggedIn = await isLogin() ?? false;
+
   runApp(
     ValueListenableBuilder<Key>(
       valueListenable: appKeyNotifier,
       builder: (context, key, _) => ChangeNotifierProvider(
         create: (_) => ThemeProvider(),
-        child: MyApp(key: key),
+        child: MyApp(key: key, isLoggedIn: isLoggedIn),
       ),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +62,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const SplashPage(),
-        initialRoute: '/',
+        home: isLoggedIn ? const HomeScreen() : const LoginPage(),
         routes: {
           '/home': (context) => const HomeScreen(),
           '/register': (context) => const RegisterPage(),

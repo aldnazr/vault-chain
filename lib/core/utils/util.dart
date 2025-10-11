@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Color defaultBackground(BuildContext context) {
   return Theme.of(context).colorScheme.surface;
@@ -42,4 +43,9 @@ Color defaultPrimaryContainer(BuildContext context) {
 
 Color defaultOnPrimaryContainer(BuildContext context) {
   return Theme.of(context).colorScheme.onPrimaryContainer;
+}
+
+Future<bool?> isLogin() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getBool('isLogin');
 }
