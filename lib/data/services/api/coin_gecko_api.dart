@@ -1,11 +1,9 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:vault_chain/data/model/coin_detail.dart';
 import 'package:vault_chain/data/model/coin_ohlc.dart';
 import 'package:vault_chain/data/model/market_model.dart';
-import 'package:vault_chain/data/model/nft_collection.dart';
-import 'package:vault_chain/data/model/nft_detail.dart';
+import 'package:vault_chain/data/model/top_coin_model.dart';
 
 class CoinGeckoApi {
   static final _baseUrl = 'https://api.coingecko.com/api/v3';
@@ -49,27 +47,14 @@ class CoinGeckoApi {
     }
   }
 
-  Future<List<NftCollection>> getNfts(String endpoint) async {
-    final url = Uri.parse("$_baseUrl$endpoint");
-
-    final response = await http.get(url, headers: _header);
-
-    if (response.statusCode == 200) {
-      final body = jsonDecode(response.body);
-      return (body as List).map((e) => NftCollection.fromJson(e)).toList();
-    } else {
-      throw Exception("Failed to fetch data: ${response.statusCode}");
-    }
-  }
-
-  Future<NftDetail> getNftsById(String endpoint) async {
+  Future<TopCoinModel> getTrendings(String endpoint) async {
     final url = Uri.parse("$_baseUrl$endpoint");
 
     final response = await http.get(url, headers: _header);
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> body = jsonDecode(response.body);
-      return NftDetail.fromJson(body);
+      return TopCoinModel.fromJson(body);
     } else {
       throw Exception("Failed to fetch data: ${response.statusCode}");
     }

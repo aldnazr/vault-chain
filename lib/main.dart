@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +6,7 @@ import 'package:vault_chain/core/utils/util.dart';
 import 'package:vault_chain/data/services/providers/detail_provider.dart';
 import 'package:vault_chain/data/services/providers/filter_provider.dart';
 import 'package:vault_chain/data/services/providers/market_provider.dart';
-import 'package:vault_chain/data/services/providers/nft_provider.dart';
+import 'package:vault_chain/data/services/providers/top_coin_provider.dart';
 import 'package:vault_chain/data/services/providers/portofolio_provider.dart';
 import 'package:vault_chain/data/services/providers/scroll_provider.dart';
 import 'package:vault_chain/data/services/providers/theme_provider.dart';
@@ -51,7 +50,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MarketProvider()..init()),
-        ChangeNotifierProvider(create: (_) => NftProvider()..init()),
+        ChangeNotifierProvider(create: (_) => TopCoinProvider()..init()),
         ChangeNotifierProvider(
           create: (_) => DetailProvider(),
           child: CoinDetailPage(),

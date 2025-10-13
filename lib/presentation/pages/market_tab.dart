@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vault_chain/widgets/crypto_tab_bar.dart';
 import 'package:vault_chain/widgets/default_appbar.dart';
-import 'package:vault_chain/widgets/nft_tab_bar.dart';
+import 'package:vault_chain/widgets/top_coin_tab_bar.dart';
 
 class MarketTab extends StatelessWidget {
   const MarketTab({super.key});
@@ -18,12 +18,12 @@ class MarketTab extends StatelessWidget {
               dividerHeight: 0.8,
               labelStyle: TextStyle(fontWeight: FontWeight.bold),
               tabs: [
-                Tab(text: 'Crypto'),
-                Tab(text: 'NFT'),
+                Tab(text: 'All Coins'),
+                Tab(text: 'Trending Coins'),
               ],
             ),
             Expanded(
-              child: TabBarView(children: [CryptoTabBar(), NftTabBar()]),
+              child: TabBarView(children: [CryptoTabBar(), TopCoinTabBar()]),
             ),
           ],
         ),
