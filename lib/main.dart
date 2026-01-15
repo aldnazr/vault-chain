@@ -120,6 +120,7 @@ class MyApp extends StatelessWidget {
             style: ButtonStyle(
               fixedSize: WidgetStateProperty.all(Size(double.maxFinite, 48)),
               elevation: WidgetStateProperty.all(2),
+              backgroundColor: WidgetStatePropertyAll(Color(0xFF0079FE)),
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
