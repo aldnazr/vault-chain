@@ -7,8 +7,8 @@ import 'package:vault_chain/widgets/price_change_icon.dart';
 import 'package:vault_chain/widgets/coin_tile_skeleton.dart';
 import 'package:vault_chain/widgets/error_handler.dart';
 
-class TopCoinTabBar extends StatelessWidget {
-  const TopCoinTabBar({super.key});
+class TrendingCoinTabBar extends StatelessWidget {
+  const TrendingCoinTabBar({super.key});
 
   @override
   Widget build(BuildContext context) {

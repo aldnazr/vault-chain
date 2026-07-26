@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:vault_chain/core/utils/util.dart';
-import 'package:vault_chain/presentation/pages/market_tab.dart';
+import 'package:vault_chain/widgets/market_tab.dart';
 import 'package:vault_chain/presentation/pages/portofolio_tab.dart';
-import 'package:vault_chain/presentation/pages/trade_tab.dart';
-import 'package:vault_chain/presentation/pages/wallet_tab.dart';
+import 'package:vault_chain/presentation/pages/home/trade_tab.dart';
+import 'package:vault_chain/presentation/pages/home/wallet_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _controller = PersistentTabController(initialIndex: 0, historyLength: 1);
   }
 
-  List<PersistentTabConfig> _tabs() => [
+  final _tabs = [
     PersistentTabConfig(
       screen: const MarketTab(),
       item: ItemConfig(
@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
-      tabs: _tabs(),
+      tabs: _tabs,
       controller: _controller,
       navBarBuilder: (navBarConfig) => Style8BottomNavBar(
         navBarConfig: navBarConfig,
@@ -86,10 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
         navBarDecoration: NavBarDecoration(color: defaultBackground(context)),
       ),
       animatedTabBuilder:
-          (context, index, animationValue, newIndex, oldIndex, child) {
-            // No animation: return the child directly
-            return child;
-          },
+          (context, index, animationValue, newIndex, oldIndex, child) => child,
     );
   }
 }

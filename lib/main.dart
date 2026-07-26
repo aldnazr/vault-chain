@@ -11,9 +11,9 @@ import 'package:vault_chain/data/services/providers/portofolio_provider.dart';
 import 'package:vault_chain/data/services/providers/scroll_provider.dart';
 import 'package:vault_chain/data/services/providers/theme_provider.dart';
 import 'package:vault_chain/presentation/pages/coin_detail_page.dart';
-import 'package:vault_chain/presentation/pages/home_screen.dart';
-import 'package:vault_chain/presentation/pages/login_page.dart';
-import 'package:vault_chain/presentation/pages/register_page.dart';
+import 'package:vault_chain/presentation/pages/home/home_screen.dart';
+import 'package:vault_chain/presentation/pages/auth/login_page.dart';
+import 'package:vault_chain/presentation/pages/auth/register_page.dart';
 import 'package:vault_chain/presentation/pages/setting_page.dart';
 
 final ValueNotifier<Key> appKeyNotifier = ValueNotifier(Key('initial'));

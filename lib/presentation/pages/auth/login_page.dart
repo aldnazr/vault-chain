@@ -21,15 +21,15 @@ class _LoginPageState extends State<LoginPage> {
       final username = _usernameController.text.trim();
       final password = _passwordController.text.trim();
 
-      if (!mounted) return;
-
       if (pref.getString(PrefKey.username.key) == username &&
           pref.getString(PrefKey.password.key) == password) {
         await pref.setString(PrefKey.username.key, username);
         await pref.setString(PrefKey.password.key, password);
         await pref.setBool(PrefKey.isLogin.key, true);
+        if (!mounted) return;
         Navigator.pushReplacementNamed(context, '/home');
       } else {
+        if (!mounted) return;
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text('Username atau Sandi salah')));

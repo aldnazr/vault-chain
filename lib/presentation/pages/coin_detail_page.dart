@@ -542,7 +542,7 @@ Widget _leftTitles(double value, TitleMeta meta) {
   );
 }
 
-class _BtcCandlestickData with EquatableMixin {
+class _BtcCandlestickData with Equatable {
   _BtcCandlestickData({
     required this.datetime,
     required this.open,

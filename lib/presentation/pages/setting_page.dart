@@ -14,6 +14,7 @@ class _SettingPageState extends State<SettingPage> {
   Future<void> _logout(BuildContext context) async {
     final pref = await SharedPreferences.getInstance();
     pref.clear();
+    if (!context.mounted) return;
     Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
   }
 
