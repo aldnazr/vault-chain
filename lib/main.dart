@@ -6,10 +6,11 @@ import 'package:vault_chain/core/utils/util.dart';
 import 'package:vault_chain/data/services/providers/detail_provider.dart';
 import 'package:vault_chain/data/services/providers/filter_provider.dart';
 import 'package:vault_chain/data/services/providers/market_provider.dart';
+import 'package:vault_chain/presentation/states/tab_provider.dart';
 import 'package:vault_chain/data/services/providers/top_coin_provider.dart';
 import 'package:vault_chain/data/services/providers/portofolio_provider.dart';
 import 'package:vault_chain/data/services/providers/scroll_provider.dart';
-import 'package:vault_chain/data/services/providers/theme_provider.dart';
+import 'package:vault_chain/presentation/states/theme_provider.dart';
 import 'package:vault_chain/presentation/pages/coin_detail_page.dart';
 import 'package:vault_chain/presentation/pages/home/home_screen.dart';
 import 'package:vault_chain/presentation/pages/auth/login_page.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FilterProvider()),
         ChangeNotifierProvider(create: (_) => ScrollProvider()),
         ChangeNotifierProvider(create: (_) => PortofolioProvider()..init()),
+        ChangeNotifierProvider(create: (_) => TabProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

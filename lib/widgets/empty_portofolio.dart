@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:provider/provider.dart';
 import 'package:vault_chain/core/utils/util.dart';
+import 'package:vault_chain/presentation/states/tab_provider.dart';
 
 class EmptyPortofolio extends StatelessWidget {
   const EmptyPortofolio({super.key});
@@ -30,7 +33,9 @@ class EmptyPortofolio extends StatelessWidget {
                 'dan tetap mengikuti pergerakan.',
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.read<TabProvider>().jumpToTab(0);
+                },
                 style: ButtonStyle(
                   elevation: WidgetStateProperty.all<double>(1),
                   fixedSize: WidgetStateProperty.all(Size(double.infinity, 40)),

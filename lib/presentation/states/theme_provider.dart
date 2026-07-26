@@ -4,8 +4,7 @@ import 'package:vault_chain/core/utils/pref_key.dart';
 
 class ThemeProvider extends ChangeNotifier {
   final _themeKey = PrefKey.themeMode;
-  ThemeMode _themeMode = ThemeMode.system;
-
+  ThemeMode _themeMode = .system;
   ThemeMode get themeMode => _themeMode;
 
   ThemeProvider() {

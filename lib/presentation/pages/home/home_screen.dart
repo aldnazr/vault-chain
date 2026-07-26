@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:provider/provider.dart';
 import 'package:vault_chain/core/utils/util.dart';
+import 'package:vault_chain/presentation/states/tab_provider.dart';
 import 'package:vault_chain/widgets/market_tab.dart';
 import 'package:vault_chain/presentation/pages/portofolio_tab.dart';
 import 'package:vault_chain/presentation/pages/home/trade_tab.dart';
@@ -15,14 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late PersistentTabController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = PersistentTabController(initialIndex: 0, historyLength: 1);
-  }
-
   final _tabs = [
     PersistentTabConfig(
       screen: const MarketTab(),
@@ -76,14 +70,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final tabController = context.watch<TabProvider>().controller;
+
     return PersistentTabView(
       tabs: _tabs,
-      controller: _controller,
+      controller: tabController,
       navBarBuilder: (navBarConfig) => Style8BottomNavBar(
         navBarConfig: navBarConfig,
         height: 65.0,
-        itemPadding: EdgeInsets.all(8.0),
-        navBarDecoration: NavBarDecoration(color: defaultBackground(context)),
+        itemPadding: .all(8.0),
+        navBarDecoration: .new(color: defaultBackground(context)),
       ),
       animatedTabBuilder:
           (context, index, animationValue, newIndex, oldIndex, child) => child,
