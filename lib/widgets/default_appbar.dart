@@ -24,7 +24,7 @@ class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {
       titleSpacing: 10,
       title: Text(
         'Vault Chain',
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+        style: TextStyle(fontSize: 18, fontWeight: .w500),
       ),
       actions: [
         IconButton(
