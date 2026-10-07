@@ -20,7 +20,6 @@ class MarketTab extends StatelessWidget {
               tabs: [
                 Tab(text: 'All Coins'),
                 Tab(text: 'Trending Coins'),
-                Tab(text: 'Trending NFT'),
               ],
             ),
             Expanded(
