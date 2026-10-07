@@ -14,7 +14,7 @@ kotlin {
 android {
     namespace = "com.myapp.vault_chain"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "29.0.13846066"
+    ndkVersion = "30.0.16248370"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

@@ -589,7 +589,7 @@ $NftDataCopyWith<$Res> get data {
 /// @nodoc
 mixin _$NftData {
 
-@JsonKey(name: 'floor_price') String get floorPrice;@JsonKey(name: 'floor_price_in_usd_24h_percentage_change') String get floorPriceInUsd24hPercentageChange;@JsonKey(name: 'h24_volume') String get h24Volume;@JsonKey(name: 'h24_average_sale_price') String get h24AverageSalePrice; String get sparkline; NftContent? get content;
+@JsonKey(name: 'floor_price') String get floorPrice;@JsonKey(name: 'floor_price_in_usd_24h_percentage_change') String get floorPriceInUsd24hPercentageChange;@JsonKey(name: 'h24_volume') String get h24Volume;@JsonKey(name: 'h24_average_sale_price') String get h24AverageSalePrice; String get sparkline;
 /// Create a copy of NftData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -602,16 +602,16 @@ $NftDataCopyWith<NftData> get copyWith => _$NftDataCopyWithImpl<NftData>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NftData&&(identical(other.floorPrice, floorPrice) || other.floorPrice == floorPrice)&&(identical(other.floorPriceInUsd24hPercentageChange, floorPriceInUsd24hPercentageChange) || other.floorPriceInUsd24hPercentageChange == floorPriceInUsd24hPercentageChange)&&(identical(other.h24Volume, h24Volume) || other.h24Volume == h24Volume)&&(identical(other.h24AverageSalePrice, h24AverageSalePrice) || other.h24AverageSalePrice == h24AverageSalePrice)&&(identical(other.sparkline, sparkline) || other.sparkline == sparkline)&&(identical(other.content, content) || other.content == content));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NftData&&(identical(other.floorPrice, floorPrice) || other.floorPrice == floorPrice)&&(identical(other.floorPriceInUsd24hPercentageChange, floorPriceInUsd24hPercentageChange) || other.floorPriceInUsd24hPercentageChange == floorPriceInUsd24hPercentageChange)&&(identical(other.h24Volume, h24Volume) || other.h24Volume == h24Volume)&&(identical(other.h24AverageSalePrice, h24AverageSalePrice) || other.h24AverageSalePrice == h24AverageSalePrice)&&(identical(other.sparkline, sparkline) || other.sparkline == sparkline));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,floorPrice,floorPriceInUsd24hPercentageChange,h24Volume,h24AverageSalePrice,sparkline,content);
+int get hashCode => Object.hash(runtimeType,floorPrice,floorPriceInUsd24hPercentageChange,h24Volume,h24AverageSalePrice,sparkline);
 
 @override
 String toString() {
-  return 'NftData(floorPrice: $floorPrice, floorPriceInUsd24hPercentageChange: $floorPriceInUsd24hPercentageChange, h24Volume: $h24Volume, h24AverageSalePrice: $h24AverageSalePrice, sparkline: $sparkline, content: $content)';
+  return 'NftData(floorPrice: $floorPrice, floorPriceInUsd24hPercentageChange: $floorPriceInUsd24hPercentageChange, h24Volume: $h24Volume, h24AverageSalePrice: $h24AverageSalePrice, sparkline: $sparkline)';
 }
 
 
@@ -622,11 +622,11 @@ abstract mixin class $NftDataCopyWith<$Res>  {
   factory $NftDataCopyWith(NftData value, $Res Function(NftData) _then) = _$NftDataCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'floor_price') String floorPrice,@JsonKey(name: 'floor_price_in_usd_24h_percentage_change') String floorPriceInUsd24hPercentageChange,@JsonKey(name: 'h24_volume') String h24Volume,@JsonKey(name: 'h24_average_sale_price') String h24AverageSalePrice, String sparkline, NftContent? content
+@JsonKey(name: 'floor_price') String floorPrice,@JsonKey(name: 'floor_price_in_usd_24h_percentage_change') String floorPriceInUsd24hPercentageChange,@JsonKey(name: 'h24_volume') String h24Volume,@JsonKey(name: 'h24_average_sale_price') String h24AverageSalePrice, String sparkline
 });
 
 
-$NftContentCopyWith<$Res>? get content;
+
 
 }
 /// @nodoc
@@ -639,30 +639,17 @@ class _$NftDataCopyWithImpl<$Res>
 
 /// Create a copy of NftData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? floorPrice = null,Object? floorPriceInUsd24hPercentageChange = null,Object? h24Volume = null,Object? h24AverageSalePrice = null,Object? sparkline = null,Object? content = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? floorPrice = null,Object? floorPriceInUsd24hPercentageChange = null,Object? h24Volume = null,Object? h24AverageSalePrice = null,Object? sparkline = null,}) {
   return _then(_self.copyWith(
 floorPrice: null == floorPrice ? _self.floorPrice : floorPrice // ignore: cast_nullable_to_non_nullable
 as String,floorPriceInUsd24hPercentageChange: null == floorPriceInUsd24hPercentageChange ? _self.floorPriceInUsd24hPercentageChange : floorPriceInUsd24hPercentageChange // ignore: cast_nullable_to_non_nullable
 as String,h24Volume: null == h24Volume ? _self.h24Volume : h24Volume // ignore: cast_nullable_to_non_nullable
 as String,h24AverageSalePrice: null == h24AverageSalePrice ? _self.h24AverageSalePrice : h24AverageSalePrice // ignore: cast_nullable_to_non_nullable
 as String,sparkline: null == sparkline ? _self.sparkline : sparkline // ignore: cast_nullable_to_non_nullable
-as String,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as NftContent?,
+as String,
   ));
 }
-/// Create a copy of NftData
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$NftContentCopyWith<$Res>? get content {
-    if (_self.content == null) {
-    return null;
-  }
 
-  return $NftContentCopyWith<$Res>(_self.content!, (value) {
-    return _then(_self.copyWith(content: value));
-  });
-}
 }
 
 
@@ -744,10 +731,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'floor_price')  String floorPrice, @JsonKey(name: 'floor_price_in_usd_24h_percentage_change')  String floorPriceInUsd24hPercentageChange, @JsonKey(name: 'h24_volume')  String h24Volume, @JsonKey(name: 'h24_average_sale_price')  String h24AverageSalePrice,  String sparkline,  NftContent? content)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'floor_price')  String floorPrice, @JsonKey(name: 'floor_price_in_usd_24h_percentage_change')  String floorPriceInUsd24hPercentageChange, @JsonKey(name: 'h24_volume')  String h24Volume, @JsonKey(name: 'h24_average_sale_price')  String h24AverageSalePrice,  String sparkline)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _NftData() when $default != null:
-return $default(_that.floorPrice,_that.floorPriceInUsd24hPercentageChange,_that.h24Volume,_that.h24AverageSalePrice,_that.sparkline,_that.content);case _:
+return $default(_that.floorPrice,_that.floorPriceInUsd24hPercentageChange,_that.h24Volume,_that.h24AverageSalePrice,_that.sparkline);case _:
   return orElse();
 
 }
@@ -765,10 +752,10 @@ return $default(_that.floorPrice,_that.floorPriceInUsd24hPercentageChange,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'floor_price')  String floorPrice, @JsonKey(name: 'floor_price_in_usd_24h_percentage_change')  String floorPriceInUsd24hPercentageChange, @JsonKey(name: 'h24_volume')  String h24Volume, @JsonKey(name: 'h24_average_sale_price')  String h24AverageSalePrice,  String sparkline,  NftContent? content)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'floor_price')  String floorPrice, @JsonKey(name: 'floor_price_in_usd_24h_percentage_change')  String floorPriceInUsd24hPercentageChange, @JsonKey(name: 'h24_volume')  String h24Volume, @JsonKey(name: 'h24_average_sale_price')  String h24AverageSalePrice,  String sparkline)  $default,) {final _that = this;
 switch (_that) {
 case _NftData():
-return $default(_that.floorPrice,_that.floorPriceInUsd24hPercentageChange,_that.h24Volume,_that.h24AverageSalePrice,_that.sparkline,_that.content);case _:
+return $default(_that.floorPrice,_that.floorPriceInUsd24hPercentageChange,_that.h24Volume,_that.h24AverageSalePrice,_that.sparkline);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -785,10 +772,10 @@ return $default(_that.floorPrice,_that.floorPriceInUsd24hPercentageChange,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'floor_price')  String floorPrice, @JsonKey(name: 'floor_price_in_usd_24h_percentage_change')  String floorPriceInUsd24hPercentageChange, @JsonKey(name: 'h24_volume')  String h24Volume, @JsonKey(name: 'h24_average_sale_price')  String h24AverageSalePrice,  String sparkline,  NftContent? content)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'floor_price')  String floorPrice, @JsonKey(name: 'floor_price_in_usd_24h_percentage_change')  String floorPriceInUsd24hPercentageChange, @JsonKey(name: 'h24_volume')  String h24Volume, @JsonKey(name: 'h24_average_sale_price')  String h24AverageSalePrice,  String sparkline)?  $default,) {final _that = this;
 switch (_that) {
 case _NftData() when $default != null:
-return $default(_that.floorPrice,_that.floorPriceInUsd24hPercentageChange,_that.h24Volume,_that.h24AverageSalePrice,_that.sparkline,_that.content);case _:
+return $default(_that.floorPrice,_that.floorPriceInUsd24hPercentageChange,_that.h24Volume,_that.h24AverageSalePrice,_that.sparkline);case _:
   return null;
 
 }
@@ -800,7 +787,7 @@ return $default(_that.floorPrice,_that.floorPriceInUsd24hPercentageChange,_that.
 @JsonSerializable()
 
 class _NftData implements NftData {
-  const _NftData({@JsonKey(name: 'floor_price') required this.floorPrice, @JsonKey(name: 'floor_price_in_usd_24h_percentage_change') required this.floorPriceInUsd24hPercentageChange, @JsonKey(name: 'h24_volume') required this.h24Volume, @JsonKey(name: 'h24_average_sale_price') required this.h24AverageSalePrice, required this.sparkline, this.content});
+  const _NftData({@JsonKey(name: 'floor_price') required this.floorPrice, @JsonKey(name: 'floor_price_in_usd_24h_percentage_change') required this.floorPriceInUsd24hPercentageChange, @JsonKey(name: 'h24_volume') required this.h24Volume, @JsonKey(name: 'h24_average_sale_price') required this.h24AverageSalePrice, required this.sparkline});
   factory _NftData.fromJson(Map<String, dynamic> json) => _$NftDataFromJson(json);
 
 @override@JsonKey(name: 'floor_price') final  String floorPrice;
@@ -808,7 +795,6 @@ class _NftData implements NftData {
 @override@JsonKey(name: 'h24_volume') final  String h24Volume;
 @override@JsonKey(name: 'h24_average_sale_price') final  String h24AverageSalePrice;
 @override final  String sparkline;
-@override final  NftContent? content;
 
 /// Create a copy of NftData
 /// with the given fields replaced by the non-null parameter values.
@@ -823,16 +809,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NftData&&(identical(other.floorPrice, floorPrice) || other.floorPrice == floorPrice)&&(identical(other.floorPriceInUsd24hPercentageChange, floorPriceInUsd24hPercentageChange) || other.floorPriceInUsd24hPercentageChange == floorPriceInUsd24hPercentageChange)&&(identical(other.h24Volume, h24Volume) || other.h24Volume == h24Volume)&&(identical(other.h24AverageSalePrice, h24AverageSalePrice) || other.h24AverageSalePrice == h24AverageSalePrice)&&(identical(other.sparkline, sparkline) || other.sparkline == sparkline)&&(identical(other.content, content) || other.content == content));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NftData&&(identical(other.floorPrice, floorPrice) || other.floorPrice == floorPrice)&&(identical(other.floorPriceInUsd24hPercentageChange, floorPriceInUsd24hPercentageChange) || other.floorPriceInUsd24hPercentageChange == floorPriceInUsd24hPercentageChange)&&(identical(other.h24Volume, h24Volume) || other.h24Volume == h24Volume)&&(identical(other.h24AverageSalePrice, h24AverageSalePrice) || other.h24AverageSalePrice == h24AverageSalePrice)&&(identical(other.sparkline, sparkline) || other.sparkline == sparkline));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,floorPrice,floorPriceInUsd24hPercentageChange,h24Volume,h24AverageSalePrice,sparkline,content);
+int get hashCode => Object.hash(runtimeType,floorPrice,floorPriceInUsd24hPercentageChange,h24Volume,h24AverageSalePrice,sparkline);
 
 @override
 String toString() {
-  return 'NftData(floorPrice: $floorPrice, floorPriceInUsd24hPercentageChange: $floorPriceInUsd24hPercentageChange, h24Volume: $h24Volume, h24AverageSalePrice: $h24AverageSalePrice, sparkline: $sparkline, content: $content)';
+  return 'NftData(floorPrice: $floorPrice, floorPriceInUsd24hPercentageChange: $floorPriceInUsd24hPercentageChange, h24Volume: $h24Volume, h24AverageSalePrice: $h24AverageSalePrice, sparkline: $sparkline)';
 }
 
 
@@ -843,11 +829,11 @@ abstract mixin class _$NftDataCopyWith<$Res> implements $NftDataCopyWith<$Res> {
   factory _$NftDataCopyWith(_NftData value, $Res Function(_NftData) _then) = __$NftDataCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'floor_price') String floorPrice,@JsonKey(name: 'floor_price_in_usd_24h_percentage_change') String floorPriceInUsd24hPercentageChange,@JsonKey(name: 'h24_volume') String h24Volume,@JsonKey(name: 'h24_average_sale_price') String h24AverageSalePrice, String sparkline, NftContent? content
+@JsonKey(name: 'floor_price') String floorPrice,@JsonKey(name: 'floor_price_in_usd_24h_percentage_change') String floorPriceInUsd24hPercentageChange,@JsonKey(name: 'h24_volume') String h24Volume,@JsonKey(name: 'h24_average_sale_price') String h24AverageSalePrice, String sparkline
 });
 
 
-@override $NftContentCopyWith<$Res>? get content;
+
 
 }
 /// @nodoc
@@ -860,292 +846,13 @@ class __$NftDataCopyWithImpl<$Res>
 
 /// Create a copy of NftData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? floorPrice = null,Object? floorPriceInUsd24hPercentageChange = null,Object? h24Volume = null,Object? h24AverageSalePrice = null,Object? sparkline = null,Object? content = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? floorPrice = null,Object? floorPriceInUsd24hPercentageChange = null,Object? h24Volume = null,Object? h24AverageSalePrice = null,Object? sparkline = null,}) {
   return _then(_NftData(
 floorPrice: null == floorPrice ? _self.floorPrice : floorPrice // ignore: cast_nullable_to_non_nullable
 as String,floorPriceInUsd24hPercentageChange: null == floorPriceInUsd24hPercentageChange ? _self.floorPriceInUsd24hPercentageChange : floorPriceInUsd24hPercentageChange // ignore: cast_nullable_to_non_nullable
 as String,h24Volume: null == h24Volume ? _self.h24Volume : h24Volume // ignore: cast_nullable_to_non_nullable
 as String,h24AverageSalePrice: null == h24AverageSalePrice ? _self.h24AverageSalePrice : h24AverageSalePrice // ignore: cast_nullable_to_non_nullable
 as String,sparkline: null == sparkline ? _self.sparkline : sparkline // ignore: cast_nullable_to_non_nullable
-as String,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as NftContent?,
-  ));
-}
-
-/// Create a copy of NftData
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$NftContentCopyWith<$Res>? get content {
-    if (_self.content == null) {
-    return null;
-  }
-
-  return $NftContentCopyWith<$Res>(_self.content!, (value) {
-    return _then(_self.copyWith(content: value));
-  });
-}
-}
-
-
-/// @nodoc
-mixin _$NftContent {
-
- String get title; String get description;
-/// Create a copy of NftContent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$NftContentCopyWith<NftContent> get copyWith => _$NftContentCopyWithImpl<NftContent>(this as NftContent, _$identity);
-
-  /// Serializes this NftContent to a JSON map.
-  Map<String, dynamic> toJson();
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NftContent&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hash(runtimeType,title,description);
-
-@override
-String toString() {
-  return 'NftContent(title: $title, description: $description)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $NftContentCopyWith<$Res>  {
-  factory $NftContentCopyWith(NftContent value, $Res Function(NftContent) _then) = _$NftContentCopyWithImpl;
-@useResult
-$Res call({
- String title, String description
-});
-
-
-
-
-}
-/// @nodoc
-class _$NftContentCopyWithImpl<$Res>
-    implements $NftContentCopyWith<$Res> {
-  _$NftContentCopyWithImpl(this._self, this._then);
-
-  final NftContent _self;
-  final $Res Function(NftContent) _then;
-
-/// Create a copy of NftContent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? description = null,}) {
-  return _then(_self.copyWith(
-title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,
-  ));
-}
-
-}
-
-
-/// Adds pattern-matching-related methods to [NftContent].
-extension NftContentPatterns on NftContent {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _NftContent value)?  $default,{required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case _NftContent() when $default != null:
-return $default(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _NftContent value)  $default,){
-final _that = this;
-switch (_that) {
-case _NftContent():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _NftContent value)?  $default,){
-final _that = this;
-switch (_that) {
-case _NftContent() when $default != null:
-return $default(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String description)?  $default,{required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case _NftContent() when $default != null:
-return $default(_that.title,_that.description);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String description)  $default,) {final _that = this;
-switch (_that) {
-case _NftContent():
-return $default(_that.title,_that.description);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String description)?  $default,) {final _that = this;
-switch (_that) {
-case _NftContent() when $default != null:
-return $default(_that.title,_that.description);case _:
-  return null;
-
-}
-}
-
-}
-
-/// @nodoc
-@JsonSerializable()
-
-class _NftContent implements NftContent {
-  const _NftContent({required this.title, required this.description});
-  factory _NftContent.fromJson(Map<String, dynamic> json) => _$NftContentFromJson(json);
-
-@override final  String title;
-@override final  String description;
-
-/// Create a copy of NftContent
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$NftContentCopyWith<_NftContent> get copyWith => __$NftContentCopyWithImpl<_NftContent>(this, _$identity);
-
-@override
-Map<String, dynamic> toJson() {
-  return _$NftContentToJson(this, );
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NftContent&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hash(runtimeType,title,description);
-
-@override
-String toString() {
-  return 'NftContent(title: $title, description: $description)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$NftContentCopyWith<$Res> implements $NftContentCopyWith<$Res> {
-  factory _$NftContentCopyWith(_NftContent value, $Res Function(_NftContent) _then) = __$NftContentCopyWithImpl;
-@override @useResult
-$Res call({
- String title, String description
-});
-
-
-
-
-}
-/// @nodoc
-class __$NftContentCopyWithImpl<$Res>
-    implements _$NftContentCopyWith<$Res> {
-  __$NftContentCopyWithImpl(this._self, this._then);
-
-  final _NftContent _self;
-  final $Res Function(_NftContent) _then;
-
-/// Create a copy of NftContent
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? description = null,}) {
-  return _then(_NftContent(
-title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

@@ -48,9 +48,6 @@ _NftData _$NftDataFromJson(Map<String, dynamic> json) => _NftData(
   h24Volume: json['h24_volume'] as String,
   h24AverageSalePrice: json['h24_average_sale_price'] as String,
   sparkline: json['sparkline'] as String,
-  content: json['content'] == null
-      ? null
-      : NftContent.fromJson(json['content'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$NftDataToJson(_NftData instance) => <String, dynamic>{
@@ -60,16 +57,4 @@ Map<String, dynamic> _$NftDataToJson(_NftData instance) => <String, dynamic>{
   'h24_volume': instance.h24Volume,
   'h24_average_sale_price': instance.h24AverageSalePrice,
   'sparkline': instance.sparkline,
-  'content': instance.content,
 };
-
-_NftContent _$NftContentFromJson(Map<String, dynamic> json) => _NftContent(
-  title: json['title'] as String,
-  description: json['description'] as String,
-);
-
-Map<String, dynamic> _$NftContentToJson(_NftContent instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'description': instance.description,
-    };
