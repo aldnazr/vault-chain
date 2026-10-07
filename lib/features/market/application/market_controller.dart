@@ -6,17 +6,11 @@ import 'package:vault_chain/shared/models/top_coin_model.dart';
 
 part 'market_controller.g.dart';
 
-class MarketState {
-  final List<MarketModel> markets;
-  final int currentPage;
-  final bool isLoadingMore;
-
-  const MarketState({
-    required this.markets,
-    required this.currentPage,
-    required this.isLoadingMore,
-  });
-
+class MarketState({
+  required final List<MarketModel> markets,
+  required final int currentPage,
+  required final bool isLoadingMore,
+}) {
   MarketState copyWith({
     List<MarketModel>? markets,
     int? currentPage,
@@ -61,7 +55,7 @@ class MarketController extends _$MarketController {
           isLoadingMore: false,
         ),
       );
-    } catch (e, st) {
+    } catch (e) {
       state = AsyncData(currentState.copyWith(isLoadingMore: false));
       // Re-throw if initial page failed, but for pagination preserve existing list
     }

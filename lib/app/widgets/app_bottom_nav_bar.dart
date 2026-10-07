@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault_chain/core/utils/util.dart';
 
+class const _NavItem({required final String icon, required final String label});
+
 class AppBottomNavBar extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
@@ -54,17 +56,16 @@ class AppBottomNavBar extends StatelessWidget {
                     item.icon,
                     width: 22,
                     height: 22,
-                    colorFilter: ColorFilter.mode(
-                      color!,
-                      BlendMode.srcIn,
-                    ),
+                    colorFilter: ColorFilter.mode(color!, BlendMode.srcIn),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     item.label,
                     style: TextStyle(
                       fontSize: 11,
-                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                      fontWeight: isSelected
+                          ? FontWeight.w600
+                          : FontWeight.normal,
                       color: color,
                     ),
                   ),
@@ -76,11 +77,4 @@ class AppBottomNavBar extends StatelessWidget {
       ),
     );
   }
-}
-
-class _NavItem {
-  final String icon;
-  final String label;
-
-  const _NavItem({required this.icon, required this.label});
 }

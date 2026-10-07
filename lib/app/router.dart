@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vault_chain/features/auth/application/auth_controller.dart';
@@ -22,7 +21,7 @@ class RouterNotifier extends ChangeNotifier {
   RouterNotifier(this._ref) {
     _ref.listen<AsyncValue<AuthState>>(
       authControllerProvider,
-      (_, __) => notifyListeners(),
+      (_, _) => notifyListeners(),
     );
   }
 }
@@ -55,7 +54,7 @@ GoRouter router(Ref ref) {
       return null;
     },
     routes: [
-      GoRoute(path: '/', redirect: (_, __) => '/market'),
+      GoRoute(path: '/', redirect: (_, _) => '/market'),
       GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
       GoRoute(
         path: '/register',
